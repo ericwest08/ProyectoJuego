@@ -1,11 +1,11 @@
+package edu.upc.dsa;
+
 import java.util.LinkedList;
 import java.util.List;
 
-import java.util.*;
+public class User implements Comparable<User> {
 
-public class User {
-
-    LinkedList<Objects> objectlist;
+    List<Objects> objectlist;
     public String iduser;
     public String name;
     public String surname;
@@ -17,12 +17,9 @@ public class User {
         this.objectlist = new LinkedList<>();
     }
 
-    public String toString(){
-        return this.name;
+    public User(){
     }
-    public void setIduser(String id){
-        this.iduser = id;
-    }
+
 
     public String getIduser(){
         return this.iduser;
@@ -48,14 +45,20 @@ public class User {
         this.objectlist.add(o);
     }
 
-    public void setObjecttoUser(LinkedList<Objects> obj){
+    public void setObjecttoUser(List<Objects> obj){
         this.objectlist=obj;
     }
 
-    public LinkedList<Objects> getObjectttoUser(){return this.objectlist;}
+    public List<Objects> getObjectttoUser(){return objectlist;}
 
-    public int numUserObjects(String iduser){
-        return objectlist.size();
+
+    @Override
+    public int compareTo(User u) {
+        return this.name.compareTo(u.name);
+    }
+
+    public String toString(){
+        return this.name;
     }
 
 
