@@ -1,20 +1,24 @@
-package edu.upc.dsa;
+package edu.upc.dsa.models;
 
 public class Objects implements Comparable<Objects> {
 
-    public String nameObject;
-    public String descriptionObject;
-    //public int priceObject;
-    public int quantity;
+    private String nameObject;
+    private String descriptionObject;
+    private int priceObject;
+    private double peso;
+    private int quantity;
 
     public Objects() {
 
     }
 
-    public Objects(String nameObject, String descriptionObject, int quantity ){
+    public Objects(String nameObject, String descriptionObject, int price, double peso, int quantity ){
         this.nameObject=nameObject;
         this.descriptionObject=descriptionObject;
+        this.priceObject = price;
+        this.peso = peso;
         this.quantity=quantity;
+
     }
 
     public void setNameObject(String name){

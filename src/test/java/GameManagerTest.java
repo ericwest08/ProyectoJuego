@@ -1,8 +1,8 @@
 
-import edu.upc.dsa.GameManager;
-import edu.upc.dsa.GameManagerImpl;
-import edu.upc.dsa.Objects;
-import edu.upc.dsa.UserNotFoundException;
+import edu.upc.dsa.mysql.GameManager;
+import edu.upc.dsa.mysql.GameManagerImpl;
+import edu.upc.dsa.models.Objects;
+import edu.upc.dsa.exceptions.UserNotFoundException;
 import org.junit.After;
 import org.apache.log4j.Logger;
 import org.junit.Assert;

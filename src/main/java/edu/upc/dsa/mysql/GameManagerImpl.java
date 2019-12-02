@@ -1,5 +1,7 @@
-package edu.upc.dsa;
+package edu.upc.dsa.mysql;
 
+import edu.upc.dsa.models.Objects;
+import edu.upc.dsa.models.User;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -7,10 +9,10 @@ import java.util.*;
 
 
 
-public class GameManagerImpl implements GameManager{
+public class GameManagerImpl implements GameManager {
 
     private Logger log = LogManager.getLogger(GameManagerImpl.class);
-    private List<Objects> objectsList;
+    private List<edu.upc.dsa.models.Objects> objectsList;
     private HashMap<String, User> users;
 
     private static GameManagerImpl instance = new GameManagerImpl();
@@ -24,14 +26,14 @@ public class GameManagerImpl implements GameManager{
         return instance;
     }
 
-    public GameManagerImpl() {// List<dsa.models.Product> productList, HashMap<String, dsa.models.edu.upc.dsa.User> users,Queue<dsa.models.Order> orderQueue) {
+    public GameManagerImpl() {// List<dsa.models.Product> productList, HashMap<String, dsa.models.edu.upc.dsa.models.User> users,Queue<dsa.models.Order> orderQueue) {
         this.objectsList = new LinkedList<>();
         this.users = new HashMap<>();
 
     }
 
     @Override
-    public User getinfouser(String iduser) //throws edu.upc.dsa.UserNotFoundException
+    public User getinfouser(String iduser) //throws edu.upc.dsa.exceptions.UserNotFoundException
     {
         User user = this.users.get(iduser);
         //if(user != null){
@@ -40,7 +42,7 @@ public class GameManagerImpl implements GameManager{
         //}
         //else{
             //log.error("The user doesn't exist");
-            //throw new edu.upc.dsa.UserNotFoundException();
+            //throw new edu.upc.dsa.exceptions.UserNotFoundException();
         //}
 
     }
@@ -71,7 +73,7 @@ public class GameManagerImpl implements GameManager{
         //}
         //else{
             //log.error("The user doesn't exist");
-            //throw new edu.upc.dsa.UserNotFoundException();
+            //throw new edu.upc.dsa.exceptions.UserNotFoundException();
         }
 
 
@@ -84,11 +86,11 @@ public class GameManagerImpl implements GameManager{
         {
             aux=new User(iduser, name, surname);
             users.put(iduser,aux);
-            log.info("edu.upc.dsa.User with name "+ aux.name+" id "+aux.iduser+ " and surname " + aux.surname +" has been added to the game");
+            log.info("edu.upc.dsa.models.User with name "+ aux.name+" id "+aux.iduser+ " and surname " + aux.surname +" has been added to the game");
         }
         else
         {
-            log.warn("edu.upc.dsa.User with name, " + name + " already exists" );
+            log.warn("edu.upc.dsa.models.User with name, " + name + " already exists" );
         }
 
     }
@@ -100,7 +102,7 @@ public class GameManagerImpl implements GameManager{
     }
 
     @Override
-    public void addObject(String iduser, Objects o){
+    public void addObject(String iduser, edu.upc.dsa.models.Objects o){
         User us =users.get(iduser);
         us.addObject(o);
         log.info(" The object " + us.getObjectttoUser() + " has been added to player " + us + ".");
