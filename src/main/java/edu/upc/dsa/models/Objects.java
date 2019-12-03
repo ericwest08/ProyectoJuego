@@ -1,6 +1,6 @@
 package edu.upc.dsa.models;
 
-public class Objects implements Comparable<Objects> {
+public abstract class Objects implements Comparable<Objects> {
 
     private String nameObject;
     private String descriptionObject;
@@ -29,6 +29,29 @@ public class Objects implements Comparable<Objects> {
         return this.nameObject;
     }
 
+    public void setDescriptionObject(String desc){
+        this.descriptionObject=desc;
+    }
+
+    public String getDescriptionObject(){
+        return this.descriptionObject;
+    }
+
+    public void setPriceObject(int price){
+        this.priceObject = price;
+    }
+
+    public int getPriceObject(){
+        return this.priceObject;
+    }
+
+    public void setPeso(double peso){
+        this.peso=peso;
+    }
+
+    public double getPeso(){
+        return this.peso;
+    }
 
     public void setQuantity(int q){
         this.quantity=q;
@@ -50,6 +73,8 @@ public class Objects implements Comparable<Objects> {
     public void numObjetos(int q){
         this.quantity+= q;
     }
+
+    public abstract String useObject();
 
     //@JsonIgnore
     //@ApiModelProperty(hidden = true)
