@@ -1,5 +1,8 @@
 package edu.upc.dsa.models;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -7,13 +10,13 @@ import java.util.Stack;
 public class User implements Comparable<User> {
 
     List<Objects> objectlist;
-    public String iduser;
+    private String iduser = RandomStringUtils.randomAlphabetic(23);
     public String name;
     private String nickname;
     private String password;
     private boolean conectado;
     private int monedas;
-    //Stack<Partida> partidas;
+    private Stack<Partida> partidas;
     private Jugador jugador;
 
 
@@ -28,6 +31,15 @@ public class User implements Comparable<User> {
     }
 
     public User(){
+    }
+
+    public boolean checkPassword()
+    {
+
+        if((nickname.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
+            return true;
+        else
+            return false;
     }
 
 
