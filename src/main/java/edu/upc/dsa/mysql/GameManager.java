@@ -17,7 +17,7 @@ public interface GameManager {
     List<User> userlistordered();
     int numUsers();
     void modifyuser(String name, String surname); //throws edu.upc.dsa.exceptions.UserNotFoundException;
-    User getinfouser (String iduser); //throws edu.upc.dsa.exceptions.UserNotFoundException;
+    User getInfo(String nickname); //throws edu.upc.dsa.exceptions.UserNotFoundException;
     void login();
 
     //Relativos a la partida

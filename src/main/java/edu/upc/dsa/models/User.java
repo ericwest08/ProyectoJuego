@@ -9,7 +9,7 @@ import java.util.Stack;
 
 public class User implements Comparable<User> {
 
-    List<Objects> objectlist;
+
     private String iduser = RandomStringUtils.randomAlphabetic(23);
     public String name;
     private String nickname;
@@ -17,6 +17,7 @@ public class User implements Comparable<User> {
     private boolean conectado;
     private int monedas;
     private Stack<Partida> partidas;
+    private List<Objects> objectlist;
     private Jugador jugador;
 
 
@@ -30,21 +31,33 @@ public class User implements Comparable<User> {
         //this.partidas = new Stack<>();
     }
 
+    public User(String nickname, String password){
+        this.setNickname(nickname);
+        this.setPassword(password);
+    }
+
     public User(){
     }
 
-    public boolean checkPassword()
-    {
-
-        if((nickname.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
+    public boolean checkPassword(String u, String p) {
+        User aux = new User(u, p);
+        if u.equals(this.(getNickname())
+        if((thi.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
             return true;
         else
             return false;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
 
-    public String getIduser(){
-        return this.iduser;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getInfo(){
+        return ("["+this.iduser+", "+this.name+", "+this.nickname+"]");
     }
 
     public void setNameuser(String name){

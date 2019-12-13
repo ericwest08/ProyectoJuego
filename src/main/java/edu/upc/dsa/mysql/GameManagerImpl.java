@@ -153,6 +153,11 @@ public class GameManagerImpl implements GameManager {
     }
 
     @Override
+    public User getInfo(String nickname) {
+        return null;
+    }
+
+    @Override
     public void addObject(String iduser, edu.upc.dsa.models.Objects o){
         User us =users.get(iduser);
         us.addObject(o);
