@@ -10,7 +10,7 @@ import java.util.Stack;
 public class User implements Comparable<User> {
 
 
-    private String iduser = RandomStringUtils.randomAlphabetic(23);
+    private String iduser;
     public String name;
     private String nickname;
     private String password;
@@ -31,9 +31,11 @@ public class User implements Comparable<User> {
         //this.partidas = new Stack<>();
     }
 
-    public User(String nickname, String password){
+    public User(String nickname, String name, String password, String iduser){
         this.setNickname(nickname);
+        this.setNameuser(name);
         this.setPassword(password);
+        this.iduser=iduser;
     }
 
     public User(){
@@ -42,7 +44,7 @@ public class User implements Comparable<User> {
     public boolean checkPassword(String u, String p) {
         User aux = new User(u, p);
         if u.equals(this.(getNickname())
-        if((thi.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
+        if((this.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
             return true;
         else
             return false;
@@ -88,6 +90,8 @@ public class User implements Comparable<User> {
         this.objectlist.add(o);
     }
 
+    //Hace falta deleteObject
+
     public void setObjecttoUser(List<Objects> obj){
         this.objectlist=obj;
     }
@@ -102,9 +106,6 @@ public class User implements Comparable<User> {
         this.conectado = conectado;
     }
 
-    //public int DameNumeroPartidas(){
-        //return this.partidas.size();
-    //}
 
     @Override
     public int compareTo(User u) {

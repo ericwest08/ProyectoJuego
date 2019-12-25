@@ -1,4 +1,4 @@
-package edu.upc.dsa;
+package edu.upc.dsa.mysql;
 
 import io.swagger.jaxrs.config.BeanConfig;
 import org.glassfish.grizzly.http.server.HttpServer;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.net.URI;
 
     /**
-     * dsa.utils.edu.upc.dsa.Main class.
+     * dsa.utils.edu.upc.dsa.mysql.Main class.
      *
      */
     public class Main {
@@ -50,7 +50,7 @@ import java.net.URI;
 
 
         /**
-         * dsa.utils.edu.upc.dsa.Main method.
+         * dsa.utils.edu.upc.dsa.mysql.Main method.
          * @param args
          * @throws IOException
          */
