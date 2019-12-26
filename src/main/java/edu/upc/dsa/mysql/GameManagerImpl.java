@@ -8,7 +8,7 @@ import java.util.*;
 
 
 
-public class GameManagerImpl implements GameManager {
+public  class GameManagerImpl implements GameManager {
 
     private Logger log = LogManager.getLogger(GameManagerImpl.class);
     private List<Objects> objectsList;
@@ -36,7 +36,7 @@ public class GameManagerImpl implements GameManager {
 
     }
 
-    @Override
+    /*@Override
     public User getinfouser(String iduser) //throws edu.upc.dsa.exceptions.UserNotFoundException
     {
         User user = this.users.get(iduser);
@@ -49,7 +49,7 @@ public class GameManagerImpl implements GameManager {
             //throw new edu.upc.dsa.exceptions.UserNotFoundException();
         //}
 
-    }
+    }*/
 
 
 
@@ -100,7 +100,7 @@ public class GameManagerImpl implements GameManager {
         int aux=this.objectsList.size();
         return aux;
     }
-
+/*
     @Override
     public void modifyuser(String iduser, String name, String surname){
         User user = this.users.get(iduser);
@@ -125,7 +125,7 @@ public class GameManagerImpl implements GameManager {
         User aux;
         if (result==null)
         {
-            aux=new User(iduser, name, surname);
+            aux=new User(name, surname);
             users.put(iduser,aux);
             log.info("edu.upc.dsa.models.User with name "+ aux.name+" id "+aux.iduser+ " and surname " + aux.surname +" has been added to the game");
         }
@@ -134,7 +134,7 @@ public class GameManagerImpl implements GameManager {
             log.warn("edu.upc.dsa.models.User with name, " + name + " already exists" );
         }
 
-    }
+    }*/
 
     @Override
     public void deleteUser(User user) {
@@ -177,14 +177,14 @@ public class GameManagerImpl implements GameManager {
         return user.getObjectttoUser().size();
 
     }
-
+/*
     @Override
     public List<Objects> objectsofuser(String idus){
         User aux=users.get(idus);
         log.info("The user with id " + idus + " have " + aux.getObjectttoUser() + ".");
         return aux.getObjectttoUser();
 
-    }
+    }*/
 
     @Override
     public HashMap<String, User> Usuarios() {

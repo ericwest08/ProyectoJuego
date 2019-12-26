@@ -12,7 +12,7 @@ import java.util.Stack;
 public interface GameManager {
 
     //Metodos relativos a la gestion de usuarios
-    void addUser(String name, String surname);
+    /*void addUser(String name, String surname);*/
     void deleteUser(User user);
     List<User> userlistordered();
     int numUsers();

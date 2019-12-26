@@ -31,25 +31,20 @@ public class User implements Comparable<User> {
         //this.partidas = new Stack<>();
     }
 
-    public User(String nickname, String name, String password, String iduser){
+    public User(String nickname, String name, String password){
         this.setNickname(nickname);
         this.setNameuser(name);
         this.setPassword(password);
-        this.iduser=iduser;
     }
 
     public User(){
     }
 
-    public boolean checkPassword(String u, String p) {
-        User aux = new User(u, p);
-        if u.equals(this.(getNickname())
-        if((this.equals(accounts[0][0])) && (password.equals(accounts[0][1])))
-            return true;
-        else
-            return false;
+    //De esta forma no hay que editar el id
+    public void setId(){
+        String iduser =RandomStringUtils.randomAlphabetic(23);
+        this.iduser=iduser;
     }
-
     public String getNickname() {
         return nickname;
     }
