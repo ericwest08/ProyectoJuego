@@ -27,6 +27,7 @@ public class Service {
 
     public Service() {
         this.tm = GameManagerImpl.getInstance();
+
         if (tm.size()==0) {
             this.tm.addUser("55555", "Eric", "Jimenez");
             this.tm.addUser("11111", "Juan", "Lopez");

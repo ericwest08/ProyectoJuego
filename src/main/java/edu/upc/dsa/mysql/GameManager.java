@@ -11,14 +11,22 @@ import java.util.Stack;
 
 public interface GameManager {
 
-    //Metodos relativos a la gestion de usuarios
-    /*void addUser(String name, String surname);*/
+    /*Metodos relativos a la gestion de usuarios
+    */
+    void addUser(String nickname, String name, String password);
     void deleteUser(User user);
+    void updateUser(User user);     //Si queremos cambiar algun valor del usuario
+    void updateUser(User user, Object obj, int i); //Puede añadir o quitar un objeto a un usuario(si lo vendmos?)
+
+    List<Objects> objectsOfUser (String nickname);//throws edu.upc.dsa.exceptions.UserNotFoundException;
+    List<Objects> objectsOfUser (User user);//throws edu.upc.dsa.exceptions.UserNotFoundException;
+
+
     List<User> userlistordered();
     int numUsers();
-    void modifyuser(String name, String surname); //throws edu.upc.dsa.exceptions.UserNotFoundException;
     User getInfo(String nickname); //throws edu.upc.dsa.exceptions.UserNotFoundException;
-    void login();
+
+    void signin();
 
     //Relativos a la partida
     Stack<Partida> partidasActivas();
@@ -29,13 +37,6 @@ public interface GameManager {
     //Metodos de la tienda
     Objects comprarObjeto();
     void venderObjeto();
-
-    //Metodos de la relacion objetos-usuario
-    void borrarObjeto();
-    int size();
-    void addObject(String userid, Objects o);
-    List<Objects> objectsOfUser (String iduser);//throws edu.upc.dsa.exceptions.UserNotFoundException;
-    int numObjects(String iduser) throws UserNotFoundException;
 
     void clear();
 

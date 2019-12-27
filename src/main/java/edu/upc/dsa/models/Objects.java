@@ -9,7 +9,6 @@ public abstract class Objects implements Comparable<Objects> {
     private int quantity;
 
     public Objects() {
-
     }
 
     public Objects(String nameObject, String descriptionObject, int price, double peso, int quantity ){
