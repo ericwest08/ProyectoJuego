@@ -26,13 +26,15 @@ public class GmeMngImpl implements GameManager {
     }
 
     //Habría que mirar como está mirando en el mapa cada valor, pero es secundario
-    //Tiene que llamar a un servicio DAO...
     public void addUser(String nickname, String name, String password) {
         User user0 = new User(nickname, name, password);
         User result = users.get(user0);
         if (result == null) {
             users.put(user0.getIduser(), user0);
-            log.info("Añadido nuevo usuario "+users);
+            UserDAOImpl user1 = new UserDAOImpl();
+            user1.addUser(nickname, name, password);
+
+            log.info("Añadido nuevo usuario: "+user0.getNickname());
         } else
             log.warn("The user " + user0.getNickname() + " ya existe");
     }
