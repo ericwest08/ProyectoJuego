@@ -1,9 +1,12 @@
 package edu.upc.dsa.mysql;
 
+import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
+import javafx.beans.binding.ObjectBinding;
+import jdk.internal.jline.console.UserInterruptException;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -39,19 +42,53 @@ public class GmeMngImpl implements GameManager {
             log.warn("The user " + user0.getNickname() + " ya existe");
     }
 
-    @Override
-    public void deleteUser(User user) {
+    public void deleteUser(User user) throws UserNotFoundException {
+        try {
+            User result = users.remove(user);
+            new UserDAOImpl().deleteUser(user.getNickname());
+            log.info("Usuario " + user.getNickname() + " borrado");
+        }catch (Exception e){
+            log.error("El usuario no existe");
+        }
+    }
+
+    public void updateUser(User u) throws UserNotFoundException {
+        User theUser = this.users.get(u);
+        if (theUser != null) {
+            this.users.remove(u.getIduser());
+            log.info("Actualizado: " + theUser);
+            this.users.put(u.getIduser(), u);
+            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), u.getObjectttoUser());
+        } else {
+            log.warn("El usuario no existe");
+            throw new UserNotFoundException();
+        }
 
     }
 
-    @Override
-    public void updateUser(User user) {
+    public void updateUser(User user, Objects obj, int i) {
+        User theUser = this.users.get(user);
+        if (theUser != null) {
+            this.users.remove(user.getIduser());
 
-    }
+            List<Objects> listaAuxObjects = theUser.getObjectttoUser();
+            for (Objects objetoAux : listaAuxObjects) {
+                if (objetoAux.getNameObject().equals(obj.getNameObject())) {
+                    i = i + objetoAux.getQuantity();
+                    listaAuxObjects.remove(objetoAux);
+                }
+            }
+            obj.setQuantity(i);
+            listaAuxObjects.add(obj);
+            //FALTA AÑADIR EL OBJETO AL USUARIO Y DE AHI LA LISTA DE USUARIOS
+            this.users.put(user.getIduser(), user);
+            log.info("Actualizado: " + theUser);
 
-    @Override
-    public void updateUser(User user, Object obj, int i) {
-
+            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), u.getObjectttoUser());
+        } else {
+            log.warn("El usuario no existe");
+            throw new UserNotFoundException();
+        }
     }
 
     @Override
@@ -61,7 +98,11 @@ public class GmeMngImpl implements GameManager {
 
     @Override
     public List<Objects> objectsOfUser(User user) {
-        return null;
+        for (User user : users) {
+            if (user.getName().equals(name)) {
+                return customer;
+            }
+        }
     }
 
     @Override

@@ -20,6 +20,8 @@ public abstract class Objects implements Comparable<Objects> {
 
     }
 
+    public Objects
+
     public void setNameObject(String name){
         this.nameObject=name;
     }
