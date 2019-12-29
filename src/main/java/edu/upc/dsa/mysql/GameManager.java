@@ -16,7 +16,7 @@ public interface GameManager {
     void addUser(String nickname, String name, String password);
     void deleteUser(User user) throws UserNotFoundException;
     void updateUser(User user) throws UserNotFoundException;     //Si queremos cambiar algun valor del usuario
-    void updateUser(User user, Objects obj, int i); //Puede añadir o quitar un objeto a un usuario(si lo vendmos?)
+    void updateUser(User user, Objects obj, int i) throws UserNotFoundException; //Puede añadir o quitar un objeto a un usuario(si lo vendmos?)
 
     List<Objects> objectsOfUser (String nickname);//throws edu.upc.dsa.exceptions.UserNotFoundException;
     List<Objects> objectsOfUser (User user);//throws edu.upc.dsa.exceptions.UserNotFoundException;

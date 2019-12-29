@@ -66,12 +66,12 @@ public class GmeMngImpl implements GameManager {
 
     }
 
-    public void updateUser(User user, Objects obj, int i) {
+    public void updateUser(User user, Objects obj, int i) throws UserNotFoundException {
         User theUser = this.users.get(user);
         if (theUser != null) {
             this.users.remove(user.getIduser());
-
             List<Objects> listaAuxObjects = theUser.getObjectttoUser();
+
             for (Objects objetoAux : listaAuxObjects) {
                 if (objetoAux.getNameObject().equals(obj.getNameObject())) {
                     i = i + objetoAux.getQuantity();
@@ -79,12 +79,13 @@ public class GmeMngImpl implements GameManager {
                 }
             }
             obj.setQuantity(i);
-            listaAuxObjects.add(obj);
-            //FALTA AÑADIR EL OBJETO AL USUARIO Y DE AHI LA LISTA DE USUARIOS
-            this.users.put(user.getIduser(), user);
+            theUser.addObject(obj);
+            //Esto haría lo mismo
+            //listaAuxObjects.add(obj);
+            //theUser.setObjecttoUser(listaAuxObjects);
+            this.users.put(theUser.getIduser(), theUser);
             log.info("Actualizado: " + theUser);
-
-            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), u.getObjectttoUser());
+            updateUser(theUser);
         } else {
             log.warn("El usuario no existe");
             throw new UserNotFoundException();
