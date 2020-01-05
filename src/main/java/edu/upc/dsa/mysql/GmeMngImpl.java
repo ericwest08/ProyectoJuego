@@ -5,8 +5,6 @@ import edu.upc.dsa.models.Mapa;
 import edu.upc.dsa.models.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
-import javafx.beans.binding.ObjectBinding;
-import jdk.internal.jline.console.UserInterruptException;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
