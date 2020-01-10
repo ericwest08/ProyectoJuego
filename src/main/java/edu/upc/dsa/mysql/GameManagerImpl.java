@@ -1,6 +1,6 @@
 package edu.upc.dsa.mysql;
 
-import edu.upc.dsa.models.Objects;
+import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.*;
@@ -158,7 +158,7 @@ public  class GameManagerImpl implements GameManager {
     }
 
     @Override
-    public void addObject(String iduser, edu.upc.dsa.models.Objects o){
+    public void addObject(String iduser, Objects o){
         User us =users.get(iduser);
         us.addObject(o);
         log.info(" The object " + us.getObjectttoUser() + " has been added to player " + us + ".");

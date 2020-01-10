@@ -3,15 +3,17 @@ package edu.upc.dsa.models;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class Partida {
-    private String id = RandomStringUtils.randomAlphanumeric(9);
-    private int numeroMapa;
-    private Mapa posicion;
+    private String id;
+    private int tiempo;
+    private int regalos;
+    private int nivel;
 
     public Partida() {
-        this.numeroMapa = 0;
-        this.posicion = new Mapa();
+        this.nivel = 0;
+        tiempo=60;
     }
 
     public String getId() {
@@ -19,23 +21,30 @@ public class Partida {
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
     }
 
-    public int getNumeroMapa() {
-        return numeroMapa;
+    public int getTiempo() {
+        return tiempo;
     }
 
-    public void setNumeroMapa(int numeroMapa) {
-        this.numeroMapa = numeroMapa;
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
     }
 
-    public Mapa getPosicion() {
-        return posicion;
+    public int getRegalos() {
+        return regalos;
     }
 
-    public void setPosicion(Mapa posicion) {
-        this.posicion = posicion;
+    public void setRegalos(int regalos) {
+        this.regalos = regalos;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
     }
 }
-

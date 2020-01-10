@@ -64,11 +64,11 @@ public class UserDAOImpl implements IUserDAO {
     }
 
 
-    public void updateUser(String nickname, int monedas, List<Objects> objectList) {
+    public void updateUser(String nickname, int monedas, int renos) {
         User user = this.getUser(nickname);
         user.setMonedas(monedas);
-        user.setObjecttoUser(objectList);
-
+        Jugador jugador= user.getJugador();
+        jugador.setRenos(renos);
         Session session = null;
         try {
             session = FactorySession.openSession();

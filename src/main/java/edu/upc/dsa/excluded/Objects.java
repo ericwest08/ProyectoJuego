@@ -1,12 +1,10 @@
-package edu.upc.dsa.models;
+package edu.upc.dsa.excluded;
 
 public abstract class Objects implements Comparable<Objects> {
 
     private String nameObject;
     private String descriptionObject;
     private int priceObject;
-    private double peso;
-    private int quantity;
 
     public Objects() {
     }

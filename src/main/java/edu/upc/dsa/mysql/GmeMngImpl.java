@@ -1,8 +1,7 @@
 package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
-import edu.upc.dsa.models.Mapa;
-import edu.upc.dsa.models.Objects;
+import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
