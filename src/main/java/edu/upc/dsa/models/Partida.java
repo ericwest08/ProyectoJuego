@@ -16,6 +16,7 @@ public class Partida {
         tiempo=60;
     }
 
+
     public String getId() {
         return iduser;
     }

@@ -1,6 +1,7 @@
 package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
+import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
@@ -13,6 +14,17 @@ import java.util.Stack;
 public class GmeMngImpl implements GameManager {
     final static Logger log = Logger.getLogger(GmeMngImpl.class.getName());
 
+    private List<Objects> objectsList;
+    private HashMap<String, User> users;
+    private Mapa mapaJuego;
+    private Partida partida;
+
+    public GmeMngImpl(){
+        this.users = new HashMap<>();
+        this.mapaJuego = new Mapa();
+        this.partida = new Partida();
+        this.objectsList = null;
+    }
 
     //Habría que mirar como está mirando en el mapa cada valor, pero es secundario
     public void addUser(String nickname, String name, String password) {
@@ -38,40 +50,28 @@ public class GmeMngImpl implements GameManager {
         }
     }
 
-    public void updateUser(User u) throws UserNotFoundException {
-        User theUser = this.users.get(u);
+    public void cambiarcontraseña(String nickname,String newpassword) throws UserNotFoundException{
+        User theUser = this.users.get(nickname);
+
         if (theUser != null) {
-            this.users.remove(u.getIduser());
-            log.info("Actualizado: " + theUser);
-            this.users.put(u.getIduser(), u);
-            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), u.getObjectttoUser());
-        } else {
+            theUser.setPassword(newpassword);
+            log.info("Actualizado: " + theUser + " con nueva contraseña: " + theUser.getPassword() + ".");
+            new UserDAOImpl().actualizarcontraseña(nickname, newpassword);
+        }
+        else{
             log.warn("El usuario no existe");
             throw new UserNotFoundException();
         }
 
     }
 
-    public void updateUser(User user, Objects obj, int i) throws UserNotFoundException {
-        User theUser = this.users.get(user);
+    public void updateUser(User u) throws UserNotFoundException {
+        User theUser = this.users.get(u);
         if (theUser != null) {
-            this.users.remove(user.getIduser());
-            List<Objects> listaAuxObjects = theUser.getObjectttoUser();
-
-            for (Objects objetoAux : listaAuxObjects) {
-                if (objetoAux.getNameObject().equals(obj.getNameObject())) {
-                    i = i + objetoAux.getQuantity();
-                    listaAuxObjects.remove(objetoAux);
-                }
-            }
-            obj.setQuantity(i);
-            theUser.addObject(obj);
-            //Esto haría lo mismo
-            //listaAuxObjects.add(obj);
-            //theUser.setObjecttoUser(listaAuxObjects);
-            this.users.put(theUser.getIduser(), theUser);
+            this.users.remove(u.getIduser());
             log.info("Actualizado: " + theUser);
-            updateUser(theUser);
+            this.users.put(u.getIduser(), u);
+            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), jugador.getRenos());
         } else {
             log.warn("El usuario no existe");
             throw new UserNotFoundException();
@@ -86,27 +86,35 @@ public class GmeMngImpl implements GameManager {
     }
 
     @Override
-    public List<Objects> objectsOfUser(User user) {
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                return customer;
-            }
-        }
+    public int numUsers() {
+        return users.size();
     }
 
     @Override
     public List<User> userlistordered() {
-        return null;
+
+
+
     }
 
-    @Override
-    public int numUsers() {
-        return 0;
-    }
+
 
     @Override
-    public User getInfo(String nickname) {
-        return null;
+    public Partida getInfo(String nickname){
+        User theUser = users.get(nickname);
+
+        if (theUser!=null)
+        {
+            theUser = new UserDAOImpl().getInfo(nickname);
+            log.info("Datos usuario: " + theUser + ".");
+        }
+        else
+        {
+            log.warn("El usuario no existe");
+
+        }
+
+        return theUser;
     }
 
     @Override

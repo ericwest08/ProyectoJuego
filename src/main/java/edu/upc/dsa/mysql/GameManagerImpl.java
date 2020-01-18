@@ -8,7 +8,7 @@ import java.util.*;
 
 
 
-public  class GameManagerImpl implements GameManager {
+public class GameManagerImpl implements GameManager {
 
     private Logger log = LogManager.getLogger(GameManagerImpl.class);
     private List<Objects> objectsList;
