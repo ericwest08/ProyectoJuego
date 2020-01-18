@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class FactorySession {
     public static Session openSession() {
 
-
         Connection conn = getConnection();
 
         Session session = new SessionImpl(conn);
@@ -16,13 +15,11 @@ public class FactorySession {
         return session;
     }
 
-
-
     private static Connection getConnection() {
         Connection conn = null;
         try {
             conn =
-                    DriverManager.getConnection("jdbc:mysql://147.83.7.205/","dsajuegodsa","explorer19");
+                    DriverManager.getConnection("jdbc:mysql://localhost/","dsajuegodsa","explorer19");
 
         } catch (SQLException ex) {
             // handle any errors
