@@ -7,24 +7,18 @@ import java.util.*;
 public class User implements Comparable<User> {
 
     private String iduser;
-    private String name;
     private String nickname;
+    private String name;
     private String password;
     private Jugador jugador;
-    private Stack<Partida> partidas;
+    private boolean conectado;
     private int monedas;
 
     public User(String nickname, String name, String password){
         this.setIduser();
-        this.setName(name);
         this.setNickname(nickname);
         this.setPassword(password);
-        new Jugador();
-    }
-
-    public User(String nickname, String name){
-        this.setIduser();
-        this.setNickname(nickname);
+        this.conectado= false;
     }
 
     public User(){
@@ -38,11 +32,12 @@ public class User implements Comparable<User> {
         this.iduser=iduser;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
-    }
-    public String getname() {
-        return name;
     }
 
     public String getIduser() {
@@ -77,12 +72,13 @@ public class User implements Comparable<User> {
         return ("["+this.iduser+", "+this.nickname+"]");
     }
 
-    public Jugador getJugador() {
-        return jugador;
+
+    public boolean isConectado() {
+        return conectado;
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+    public void setConectado(boolean conectado) {
+        this.conectado = conectado;
     }
 
     @Override
