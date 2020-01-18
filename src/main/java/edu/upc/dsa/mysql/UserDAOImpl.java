@@ -5,6 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.List;
+import java.util.Stack;
 
 public class UserDAOImpl implements IUserDAO {
     final static Logger log = Logger.getLogger(UserDAOImpl.class.getName());
@@ -134,6 +135,23 @@ public class UserDAOImpl implements IUserDAO {
 
 
    }
+
+    public Stack<Partida> partidasActivas(){
+
+    }
+
+    public void cargarPartida(Partida partida){
+
+    }
+    public void guardarPartida(Partida partida){
+
+    }
+    public Partida nuevaPartida(){
+
+    }
+    public Jugador comprarObjeto(){
+
+    }
 
 
 
