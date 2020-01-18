@@ -21,8 +21,6 @@ public interface IUserDAO {
     void guardarPartida(Partida partida);
     Partida nuevaPartida();
     Jugador comprarObjeto();
-    void venderObjeto();
-    void clear();
     List<User> getUsers();
 
     //public List <User> getEmployeeByDept(int deptId);
