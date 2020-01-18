@@ -17,6 +17,7 @@ public class Partida {
     }
 
 
+
     public String getId() {
         return iduser;
     }

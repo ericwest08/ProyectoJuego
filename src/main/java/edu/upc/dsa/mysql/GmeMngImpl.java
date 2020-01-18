@@ -2,6 +2,7 @@ package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.excluded.Objects;
+import edu.upc.dsa.models.Jugador;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
@@ -13,6 +14,8 @@ import java.util.Stack;
 
 public class GmeMngImpl implements GameManager {
     final static Logger log = Logger.getLogger(GmeMngImpl.class.getName());
+    private HashMap<String, User> users;
+    private Jugador jugador;
 
 
     //Habría que mirar como está mirando en el mapa cada valor, pero es secundario
@@ -65,13 +68,6 @@ public class GmeMngImpl implements GameManager {
             log.warn("El usuario no existe");
             throw new UserNotFoundException();
         }
-    }
-
-    public List<Objects> objectsOfUser(String nickname) {
-        List<Objects> list = new LinkedList<>();
-        
-        list.addAll(objectsList);
-        return list;
     }
 
     @Override

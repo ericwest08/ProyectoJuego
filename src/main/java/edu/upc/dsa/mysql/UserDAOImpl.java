@@ -103,7 +103,7 @@ public class UserDAOImpl implements IUserDAO {
         jugador.setRenos(renos);
         try {
             session = FactorySession.openSession();
-            session.update(User.class, idUser)
+            session.update(User.class, idUser);
             session.update(Jugador.class, idUser);
         }
         catch (Exception e) {
@@ -144,10 +144,51 @@ public class UserDAOImpl implements IUserDAO {
             throw new UserNotFoundException();
 
         }return idUser;
+    }
+
+    public Partida getInfo(User user){
+        Session session = null;
+        String partida;
+        try {
+            session = FactorySession.openSession();
+            partida = session.
+
+        }
+        catch (Exception e) {
+            log.error("Error MSQL "+this.getClass());
+        }
+        finally {
+            session.close();
+        }
+
+        return partida;
+
+    }
+    public Jugador ComprarObjeto(int renos){
+        Jugador jugador =  new Jugador();
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+
+        }
+    }
+
+    public void cambiarcontraseña(String nickname, String newpassword) throws UserNotFoundException{
+        User theUser = this.getUser(nickname);
+        if (theUser != null){
+            theUser.setPassword(newpassword);
+            log.info("Actualizado: " + theUser + " con nueva contraseña: " + theUser.getPassword() + ".");
+
+        }
+        else
+        {
+            log.warn("El usuario no existe");
+            throw new UserNotFoundException();
+        }
+
+    }
 
 
 
-
-}
 }
 

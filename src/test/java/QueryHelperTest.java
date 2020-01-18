@@ -37,9 +37,60 @@ public class QueryHelperTest {
         User user = new User();
         String login = "user1";
         String passwd = "passwd1";
-        user.setNameuser(login);
+        user.setName(login);
         user.setPassword(passwd);
         Assert.assertEquals("SELECT * FROM User WHERE username = ? AND password = ?",
                 QueryHelper.createQueryLOGIN(user));
     }
+
+    @Test
+    public void addUserQuery(){
+        User user = new User();
+        String nick = "user1";
+        String name = "name1";
+        String passwd = "passwd1";
+        user.setNickname(nick);
+        user.setName(name);
+        user.setPassword(passwd);
+        Assert.assertEquals("INSERT INTO User (nick,name,passwd) VALUES (?,?,?)",
+                QueryHelper.createQueryINSERT(user));
+
+    }
+
+    @Test
+    public void getUserQuery(){
+        User user = new User();
+        String nick = "nickkk";
+        user.setNickname(nick);
+        Assert.assertEquals("SELECT * FROM User WHERE Nickname = ?",
+                QueryHelper.createQuerySELECT(user));
+    }
+
+    @Test
+    public void deleteUserQuery(){
+        User user = new User();
+        String nick = "nickkk";
+        user.setNickname(nick);
+        Assert.assertEquals("DELETE * FROM User WHERE Nickname = ?",
+                QueryHelper.createQueryDELETEALL(user));
+    }
+
+    @Test
+    public void getIDUserQuery(){
+        User user = new User();
+        String nick = "nickkk";
+        String passw = "passw1";
+        user.setNickname(nick);
+        user.setPassword(passw);
+        Assert.assertEquals("SELECT ID FROM User WHERE Nickname = ? AND Password = ?",
+                QueryHelper.createQueryDELETEALL(user));
+    }
+
+
+
+
+
+
+
+
 }

@@ -12,6 +12,7 @@ public class User implements Comparable<User> {
     private String password;
     private boolean conectado;
     private int monedas;
+    private int renos;
 
     public User(String nickname, String name, String password){
         this.setIduser();
@@ -33,6 +34,14 @@ public class User implements Comparable<User> {
 
     public String getName() {
         return name;
+    }
+
+    public int getRenos() {
+        return renos;
+    }
+
+    public void setRenos(int renos) {
+        this.renos = renos;
     }
 
     public void setName(String name) {

@@ -1,6 +1,6 @@
 
-import edu.upc.dsa.mysql.GameManager;
-import edu.upc.dsa.mysql.GameManagerImpl;
+import edu.upc.dsa.mysql.IUserDAO;
+import edu.upc.dsa.mysql.UserDAOImpl;
 import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import org.junit.After;
@@ -11,7 +11,7 @@ import org.junit.Test;
 
 
 public class GameManagerTest {
-    private GameManager gm = null;
+    private IUserDAO gm = null;
     final static Logger log = Logger.getLogger(GameManagerTest.class.getName());
 
     @Before
