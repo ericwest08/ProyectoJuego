@@ -1,5 +1,6 @@
 package edu.upc.dsa.mysql;
 
+import edu.upc.dsa.exceptions.UserAlreadyConnectedException;
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.models.*;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -11,33 +12,42 @@ public class UserDAOImpl implements IUserDAO {
     final static Logger log = Logger.getLogger(UserDAOImpl.class.getName());
 
 
-    public void loginUser(String login, String passwd) throws UserNotFoundException {
+    public void loginUser(String login, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
         Session session = null;
-        try{
-            User user = new User();
-            user.setNickname(login);
-            user.setPassword(passwd);
+        User user=null;
+        Jugador jugador = null;
+        String idUser = getIduser(login, passwd);
 
+        try{
             session = FactorySession.openSession();
-            user = (User) session.get(User.class, user.getIduser());
+            user = (User) session.get(User.class, idUser);
         }catch (Exception e) {
             log.error("MYSQL Login fallado con "+User.class);
         }
         finally {
             session.close();
         }
+        if(!user.isConectado()){
+            user.setConectado(true);
 
-            session = FactorySession.openSession();
-            session.update(user, idUser);
-            player = (Player)session.get(Player.class, idUser);
+            try {
+                session = FactorySession.openSession();
+                session.update(user, idUser);
+                jugador = (Jugador)session.get(Jugador.class, idUser);
+            }
+            catch (Exception e) {
+                log.error("Error trying to open the session: " +e.getMessage());
+                throw new UserNotFoundException();
+            }
+            finally {
+                session.close();
+            }
         }
-        catch (Exception e) {
-            log.error("Error trying to open the session: " +e.getMessage());
-            throw new UserNotFoundException();
+        else{
+            log.error("El usuario ya existe");
+            throw new UserAlreadyConnectedException();
         }
-        finally {
-            session.close();
-        }
+
     }
 
 
@@ -52,7 +62,7 @@ public class UserDAOImpl implements IUserDAO {
             jugador.setIduser(idUser);
 
             session.save(jugador);
-            log.info("Jugador creado "+this.getClass().getSimpleName())
+            log.info("Jugador creado "+this.getClass().getSimpleName());
         }
         catch (Exception e) {
             log.error("Error MYSQL "+this.getClass());
@@ -85,14 +95,15 @@ public class UserDAOImpl implements IUserDAO {
 
     public void updateUser(String nickname, int monedas, int renos) {
         User user = this.getUser(nickname);
-
+        String idUser = user.getIduser();
         user.setMonedas(monedas);
-        Jugador jugador= user.getJugador();
-        jugador.setRenos(renos);
         Session session = null;
+        Jugador jugador = null;
+        jugador.setRenos(renos);
         try {
             session = FactorySession.openSession();
-            session.update(User.class, user.getIduser());
+            session.update(User.class, idUser)
+            session.update(Jugador.class, idUser);
         }
         catch (Exception e) {
             log.error("Error MSQL "+this.getClass());

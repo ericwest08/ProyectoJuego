@@ -1,7 +1,6 @@
 package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
-import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
@@ -14,17 +13,6 @@ import java.util.Stack;
 public class GmeMngImpl implements GameManager {
     final static Logger log = Logger.getLogger(GmeMngImpl.class.getName());
 
-    private List<Objects> objectsList;
-    private HashMap<String, User> users;
-    private Mapa mapaJuego;
-    private Partida partida;
-
-    public GmeMngImpl(){
-        this.users = new HashMap<>();
-        this.mapaJuego = new Mapa();
-        this.partida = new Partida();
-        this.objectsList = null;
-    }
 
     //Habría que mirar como está mirando en el mapa cada valor, pero es secundario
     public void addUser(String nickname, String name, String password) {

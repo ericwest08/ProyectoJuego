@@ -10,7 +10,6 @@ public class User implements Comparable<User> {
     private String nickname;
     private String name;
     private String password;
-    private Jugador jugador;
     private boolean conectado;
     private int monedas;
 

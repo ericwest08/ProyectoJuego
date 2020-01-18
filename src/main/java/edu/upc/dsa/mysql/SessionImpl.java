@@ -29,7 +29,7 @@ public class SessionImpl implements Session {
         try {
             pstm = conn.prepareStatement(insertQuery);
             pstm.setObject(1, 0);
-            int i = 2;
+            int i = 1;
 
             for (String field: ObjectHelper.getFields(entity)) {
                 pstm.setObject(i++, ObjectHelper.getter(entity, field));
@@ -88,7 +88,7 @@ public class SessionImpl implements Session {
 
             try {
                 pstm = conn.prepareStatement(updateQuery);
-                int i = 1;
+                int i = 2;
 
                 for (String field : ObjectHelper.getFields(entity)) {
                         pstm.setObject(i++, ObjectHelper.getter(entity, field));
@@ -137,8 +137,8 @@ public class SessionImpl implements Session {
 
         try {
             pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(1, username);
-            pstm.setObject(2, password);
+            pstm.setObject(2, username);
+            pstm.setObject(4, password);
             rs = pstm.executeQuery();
 
             rs.next();
