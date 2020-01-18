@@ -142,35 +142,12 @@ public class UserDAOImpl implements IUserDAO {
         } catch (Exception e) {
             log.error("El usuario no existe" + e.getMessage());
             throw new UserNotFoundException();
-            return idUser;
-        }
+
+        }return idUser;
+
+
 
 
 }
-
-    public User getInfo(Partida partida){
-
-    }
-    public Stack<Partida> partidasActivas(){
-
-    }
-    public void cargarPartida(Partida partida){
-
-    }
-    public void guardarPartida(Partida partida){
-
-    }
-    public Partida nuevaPartida(){
-
-    }
-    public Jugador comprarObjeto(){
-
-    }
-    public void venderObjeto(){
-
-    }
-    public void clear(){//
-
-    }
 }
 

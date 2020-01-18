@@ -21,13 +21,6 @@ public interface GameManager {
     int numUsers();
     Partida getInfo(String nickname);
     void signin();
-    User login();
-
-    //Relativos a la partida
-    Stack<Partida> partidasActivas();
-    void cargarPartida(Partida partida);
-    void guardarPartida(Partida partida);
-    Partida nuevaPartida();
 
     //Metodos de la tienda
     Jugador comprarObjeto();
