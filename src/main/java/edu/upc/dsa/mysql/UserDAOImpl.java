@@ -158,7 +158,7 @@ public class UserDAOImpl implements IUserDAO {
     public void venderObjeto(){
 
     }
-    public void clear(){
+    public void clear(){//
 
     }
 }
