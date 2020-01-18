@@ -7,17 +7,24 @@ import java.util.*;
 public class User implements Comparable<User> {
 
     private String iduser;
+    private String name;
     private String nickname;
     private String password;
     private Jugador jugador;
     private Stack<Partida> partidas;
     private int monedas;
 
-    public User(String nickname, String password){
+    public User(String nickname, String name, String password){
         this.setIduser();
+        this.setName(name);
         this.setNickname(nickname);
         this.setPassword(password);
         new Jugador();
+    }
+
+    public User(String nickname, String name){
+        this.setIduser();
+        this.setNickname(nickname);
     }
 
     public User(){
@@ -29,6 +36,13 @@ public class User implements Comparable<User> {
     public void setIduser(){
         String iduser = UUID.randomUUID().toString();
         this.iduser=iduser;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getname() {
+        return name;
     }
 
     public String getIduser() {

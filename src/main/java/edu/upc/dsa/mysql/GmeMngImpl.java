@@ -2,28 +2,30 @@ package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.excluded.Objects;
+import edu.upc.dsa.models.Jugador;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
 
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public class GmeMngImpl implements GameManager {
+
     final static Logger log = Logger.getLogger(GmeMngImpl.class.getName());
 
-    private List<Objects> objectsList;
+    private Stack<Partida> partidasActivas;
     private HashMap<String, User> users;
-    private Mapa mapaJuego;
     private Partida partida;
+    private Jugador jugador;
 
     public GmeMngImpl(){
         this.users = new HashMap<>();
-        this.mapaJuego = new Mapa();
         this.partida = new Partida();
-        this.objectsList = null;
+        this.partidasActivas = new Stack<>();
     }
 
     //Habría que mirar como está mirando en el mapa cada valor, pero es secundario
@@ -33,7 +35,7 @@ public class GmeMngImpl implements GameManager {
         if (result == null) {
             users.put(user0.getIduser(), user0);
             UserDAOImpl user1 = new UserDAOImpl();
-            user1.addUser(nickname, name, password);
+            user1.addUser(nickname,name,password);
 
             log.info("Añadido nuevo usuario: "+user0.getIduser());
         } else
@@ -50,75 +52,63 @@ public class GmeMngImpl implements GameManager {
         }
     }
 
+    public void cambiarcontraseña(String nickname,String newpassword) throws UserNotFoundException{
+        User theUser = this.users.get(nickname);
+
+        if (theUser != null) {
+            theUser.setPassword(newpassword);
+            log.info("Actualizado: " + theUser + " con nueva contraseña: " + theUser.getPassword() + ".");
+        }
+        else{
+            log.warn("El usuario no existe");
+            throw new UserNotFoundException();
+        }
+
+    }
+
     public void updateUser(User u) throws UserNotFoundException {
         User theUser = this.users.get(u);
         if (theUser != null) {
             this.users.remove(u.getIduser());
             log.info("Actualizado: " + theUser);
             this.users.put(u.getIduser(), u);
-            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), u.getObjectttoUser());
+            new UserDAOImpl().updateUser(u.getNickname(), u.getMonedas(), jugador.getRenos());
         } else {
             log.warn("El usuario no existe");
             throw new UserNotFoundException();
         }
 
     }
-
-    public void updateUser(User user, Objects obj, int i) throws UserNotFoundException {
-        User theUser = this.users.get(user);
-        if (theUser != null) {
-            this.users.remove(user.getIduser());
-            List<Objects> listaAuxObjects = theUser.getObjectttoUser();
-
-            for (Objects objetoAux : listaAuxObjects) {
-                if (objetoAux.getNameObject().equals(obj.getNameObject())) {
-                    i = i + objetoAux.getQuantity();
-                    listaAuxObjects.remove(objetoAux);
-                }
-            }
-            obj.setQuantity(i);
-            theUser.addObject(obj);
-            //Esto haría lo mismo
-            //listaAuxObjects.add(obj);
-            //theUser.setObjecttoUser(listaAuxObjects);
-            this.users.put(theUser.getIduser(), theUser);
-            log.info("Actualizado: " + theUser);
-            updateUser(theUser);
-        } else {
-            log.warn("El usuario no existe");
-            throw new UserNotFoundException();
-        }
-    }
-
-    public List<Objects> objectsOfUser(String nickname) {
-        List<Objects> list = new LinkedList<>();
-        
-        list.addAll(objectsList);
-        return list;
-    }
-
     @Override
-    public List<Objects> objectsOfUser(User user) {
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                return customer;
-            }
-        }
+    public int numUsers() {
+        return users.size();
     }
 
     @Override
     public List<User> userlistordered() {
-        return null;
+
+
+
     }
 
-    @Override
-    public int numUsers() {
-        return 0;
-    }
+
 
     @Override
-    public User getInfo(String nickname) {
-        return null;
+    public User getInfo(String nickname) throws UserNotFoundException {
+        User theUser = users.get(nickname) ;
+
+        if (theUser!=null)
+        {
+            theUser = new UserDAOImpl().getUser(nickname);
+            log.info("Datos Usuario: " + theUser + ".");
+        }
+        else
+        {
+            log.warn("El usuario no existe");
+            throw new UserNotFoundException();
+        }
+
+        return theUser;
     }
 
     @Override
@@ -128,7 +118,7 @@ public class GmeMngImpl implements GameManager {
 
     @Override
     public Stack<Partida> partidasActivas() {
-        return null;
+
     }
 
     @Override
@@ -147,14 +137,10 @@ public class GmeMngImpl implements GameManager {
     }
 
     @Override
-    public Objects comprarObjeto() {
+    public Jugador comprarObjeto() {
         return null;
     }
 
-    @Override
-    public void venderObjeto() {
-
-    }
 
     @Override
     public void clear() {
