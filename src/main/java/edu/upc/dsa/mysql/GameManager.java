@@ -2,7 +2,6 @@ package edu.upc.dsa.mysql;
 
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.excluded.Objects;
-import edu.upc.dsa.models.Jugador;
 import edu.upc.dsa.models.Partida;
 import edu.upc.dsa.models.User;
 
@@ -17,7 +16,10 @@ public interface GameManager {
     void addUser(String nickname, String name, String password);
     void deleteUser(User user) throws UserNotFoundException;
     void updateUser(User user) throws UserNotFoundException;     //Si queremos cambiar algun valor del usuario
-    int getRegalos(User user) throws UserNotFoundException;
+
+    //List<Objects> objectsOfUser (String nickname);//throws edu.upc.dsa.exceptions.UserNotFoundException;
+    //List<Objects> objectsOfUser (User user);//throws edu.upc.dsa.exceptions.UserNotFoundException;
+
 
     List<User> userlistordered();
     int numUsers();
@@ -32,7 +34,9 @@ public interface GameManager {
     Partida nuevaPartida();
 
     //Metodos de la tienda
-    Jugador comprarObjeto();
+    Objects comprarObjeto();
+    void venderObjeto();
+
     void clear();
 
 

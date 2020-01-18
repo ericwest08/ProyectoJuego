@@ -7,6 +7,7 @@ import edu.upc.dsa.models.User;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -34,7 +35,7 @@ public class GmeMngImpl implements GameManager {
             UserDAOImpl user1 = new UserDAOImpl();
             user1.addUser(nickname, name, password);
 
-            log.info("Añadido nuevo usuario: "+user0.getNickname());
+            log.info("Añadido nuevo usuario: "+user0.getIduser());
         } else
             log.warn("The user " + user0.getNickname() + " ya existe");
     }
@@ -89,9 +90,11 @@ public class GmeMngImpl implements GameManager {
         }
     }
 
-    @Override
     public List<Objects> objectsOfUser(String nickname) {
-        return null;
+        List<Objects> list = new LinkedList<>();
+        
+        list.addAll(objectsList);
+        return list;
     }
 
     @Override
