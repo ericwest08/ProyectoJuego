@@ -58,6 +58,7 @@ public class GmeMngImpl implements GameManager {
         if (theUser != null) {
             theUser.setPassword(newpassword);
             log.info("Actualizado: " + theUser + " con nueva contraseña: " + theUser.getPassword() + ".");
+            new UserDAOImpl().actualizarcontraseña(nickname, newpassword);
         }
         else{
             log.warn("El usuario no existe");

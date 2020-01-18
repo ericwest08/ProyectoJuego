@@ -100,6 +100,43 @@ public class UserDAOImpl implements IUserDAO {
 
     }
 
+    public void actualizarcontraseña(String nickname, String newpassword){
+
+        User user = this.getUser(nickname);
+        user.setPassword(newpassword);
+        Session session = null;
+        try {
+            session = FactorySession.openSession();
+            session.update(User.class, user.getIduser());
+        }
+        catch (Exception e) {
+            log.error("Error MSQL "+this.getClass());
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+   public Partida getInfo(String nickname){
+        User user = null;
+        Session session = null;
+       try {
+           session = FactorySession.openSession();
+           user = (User)session.get(Partida.class,);
+       }
+       catch (Exception e) {
+           log.error("Error MSQL "+this.getClass());
+       }
+       finally {
+           session.close();
+       }
+
+
+   }
+
+
+
     /*public List<User> getUsers() {
         Session session = null;
         List<User> userList=null;

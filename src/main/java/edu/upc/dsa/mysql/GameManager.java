@@ -15,6 +15,7 @@ public interface GameManager {
     */
     void addUser(String nickname,String name, String password);
     void deleteUser(User user) throws UserNotFoundException;
+    void updateUser(User u) throws UserNotFoundException;
     void cambiarcontraseña(String nickname, String newpassword) throws UserNotFoundException;
     List<User> userlistordered();
     int numUsers();
