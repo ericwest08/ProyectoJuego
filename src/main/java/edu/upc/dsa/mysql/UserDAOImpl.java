@@ -107,7 +107,7 @@ public class UserDAOImpl implements IUserDAO {
             session.update(Jugador.class, idUser);
         }
         catch (Exception e) {
-            log.error("Error MSQL "+this.getClass());
+            log.error("Error MYSQL "+this.getClass());
         }
         finally {
             session.close();
@@ -116,7 +116,7 @@ public class UserDAOImpl implements IUserDAO {
 
 
 
-    public void deleteUser(String nickname) {
+    public void deleteUser(String nickname) throws UserNotFoundException {
         User user = this.getUser(nickname);
         Session session = null;
         try {
@@ -124,7 +124,7 @@ public class UserDAOImpl implements IUserDAO {
             session.delete(User.class, user.getIduser());
         }
         catch (Exception e) {
-            // LOG
+            throw new UserNotFoundException();
         }
         finally {
             session.close();
@@ -133,17 +133,17 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     public String getIduser(String nickname, String password) throws UserNotFoundException {
-    String idUser;
-    Session session = null;
+        String idUser;
+        Session session = null;
 
-    try {
-        session = FactorySession.openSession();
-        idUser = session.getID(User.class, nickname, password);
-    } catch(Exception e){
-        log.error("El usuario no existe"+ e.getMessage());
-        throw new UserNotFoundException();
-    return idUser;
-    }
+        try {
+            session = FactorySession.openSession();
+            idUser = session.getID(User.class, nickname, password);
+        } catch (Exception e) {
+            log.error("El usuario no existe" + e.getMessage());
+            throw new UserNotFoundException();
+            return idUser;
+        }
 
 
 }
