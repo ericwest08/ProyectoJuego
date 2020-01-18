@@ -66,13 +66,14 @@ public class UserDAOImpl implements IUserDAO {
 
     public void updateUser(String nickname, int monedas, int renos) {
         User user = this.getUser(nickname);
+
         user.setMonedas(monedas);
         Jugador jugador= user.getJugador();
         jugador.setRenos(renos);
         Session session = null;
         try {
             session = FactorySession.openSession();
-            session.update(User.class);
+            session.update(User.class, user.getIduser());
         }
         catch (Exception e) {
             log.error("Error MSQL "+this.getClass());
@@ -88,7 +89,7 @@ public class UserDAOImpl implements IUserDAO {
         Session session = null;
         try {
             session = FactorySession.openSession();
-            session.delete(User.class);
+            session.delete(User.class, user.getIduser());
         }
         catch (Exception e) {
             // LOG
@@ -99,7 +100,7 @@ public class UserDAOImpl implements IUserDAO {
 
     }
 
-    public List<User> getUsers() {
+    /*public List<User> getUsers() {
         Session session = null;
         List<User> userList=null;
         try {
@@ -113,28 +114,6 @@ public class UserDAOImpl implements IUserDAO {
             session.close();
         }
         return userList;
-    }
-
-    /*AQUI PODRÍA SER LO DE OBTENER POR NOMBRE ORDENANO
-    public List<Employee> getEmployeeByDept(int deptID) {
-
-        Session session = null;
-        List<Employee> employeeList=null;
-        try {
-            session = FactorySession.openSession();
-
-            HashMap<String, Integer> params = new HashMap<String, Integer>();
-            params.put("deptID", deptID);
-
-            employeeList = session.findAll(Employee.class, params);
-        }
-        catch (Exception e) {
-            // LOG
-        }
-        finally {
-            session.close();
-        }
-        return employeeList;
     }*/
 
 
