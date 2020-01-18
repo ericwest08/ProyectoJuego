@@ -95,18 +95,18 @@ public class GmeMngImpl implements GameManager {
 
 
     @Override
-    public User getInfo(String nickname) throws UserNotFoundException {
-        User theUser = users.get(nickname) ;
+    public Partida getInfo(String nickname){
+        User theUser = users.get(nickname);
 
         if (theUser!=null)
         {
-            theUser = new UserDAOImpl().getUser(nickname);
-            log.info("Datos Usuario: " + theUser + ".");
+            theUser = new UserDAOImpl().getInfo(nickname);
+            log.info("Datos usuario: " + theUser + ".");
         }
         else
         {
             log.warn("El usuario no existe");
-            throw new UserNotFoundException();
+
         }
 
         return theUser;

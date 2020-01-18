@@ -19,7 +19,7 @@ public interface GameManager {
     void cambiarcontraseña(String nickname, String newpassword) throws UserNotFoundException;
     List<User> userlistordered();
     int numUsers();
-    User getInfo(String nickname) throws UserNotFoundException;
+    Partida getInfo(String nickname);
     void signin();
     User login();
 
