@@ -8,14 +8,12 @@ import java.sql.SQLException;
 public class FactorySession {
     public static Session openSession() {
 
-
         Connection conn = getConnection();
 
         Session session = new SessionImpl(conn);
 
         return session;
     }
-
 
 
     private static Connection getConnection() {
