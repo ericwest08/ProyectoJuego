@@ -14,10 +14,7 @@ public interface IUserDAO {
     void updateUser(String nickname, int monedas, int renos);
     void deleteUser(String nickname);
     User getInfo(Partida partida);
-    Stack<Partida> partidasActivas();
-    void cargarPartida(Partida partida);
     void guardarPartida(Partida partida);
-    Partida nuevaPartida();
     Jugador comprarObjeto();
     //List<User> getUsers();
     //public List <User> getEmployeeByDept(int deptId);
