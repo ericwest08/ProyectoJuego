@@ -3,10 +3,9 @@ package edu.upc.dsa.mysql;
 import edu.upc.dsa.util.*;
 
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,27 +17,6 @@ public class SessionImpl implements Session {
         this.conn = conn;
     }
 
-    public boolean selectlogin(Object entity) {
-        String selectQuery = QueryHelper.createQueryLOGIN(entity);
-        PreparedStatement pstm = null;
-        try {
-            pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(1, 0);
-            int i = 1;
-
-            for (String field: ObjectHelper.getFields(entity)) {
-                pstm.setObject(i++, ObjectHelper.getter(entity, field));
-            }
-
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next()){
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }      //Asegurarse que no hace siempre esté loop false
 
 
     public void save(Object entity) {
@@ -60,6 +38,10 @@ public class SessionImpl implements Session {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
 
     }
@@ -70,19 +52,83 @@ public class SessionImpl implements Session {
 
     }
 
-    public Object get(Class theClass, String ID) {
-        return null;
+    public Object get(Class theClass, String ID) throws SQLException {
+        Object entity = null;
+        String selectQuery = QueryHelper.createQuerySELECT(theClass);
+        ResultSet rs;
+        PreparedStatement pstm;
+
+        try {
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(1, ID);
+            rs = pstm.executeQuery();
+
+            while (rs.next()) {
+                Field[] fields = theClass.getDeclaredFields();
+                rs.getString(1);
+                for (int i = 0; i < fields.length; i++) {
+                    ResultSetMetaData rsmd = rs.getMetaData();
+                    String fieldName = rsmd.getColumnName(i + 2);
+                    ObjectHelper.setter(entity, fieldName, rs.getObject(i + 2));
+                }
+
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return entity;
+    }
+        public void update(Object entity, String ID) {
+            String updateQuery = QueryHelper.createQueryUPDATE(entity);
+
+            PreparedStatement pstm;
+
+            try {
+                pstm = conn.prepareStatement(updateQuery);
+                int i = 1;
+
+                for (String field : ObjectHelper.getFields(entity)) {
+                        pstm.setObject(i++, ObjectHelper.getter(entity, field));
+                    }
+
+
+                pstm.setObject(i, ID);
+
+                pstm.executeUpdate();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+    public void delete(Object object, String ID) {
+        String deleteQuery = QueryHelper.createQueryDELETE(object);
+
+        PreparedStatement pstm;
+
+        try {
+            pstm = conn.prepareStatement(deleteQuery);
+            pstm.setObject(1, ID);
+
+            pstm.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void update(Object object) {
 
-    }
 
-    public void delete(Object object) {
-
-    }
-
-    public List<Object> findAll(Class theClass) {
+    /*public List<Object> findAll(Class theClass) {
         return null;
     }
 
@@ -92,5 +138,5 @@ public class SessionImpl implements Session {
 
     public List<Object> query(String query, Class theClass, HashMap params) {
         return null;
-    }
+    }*/
 }
