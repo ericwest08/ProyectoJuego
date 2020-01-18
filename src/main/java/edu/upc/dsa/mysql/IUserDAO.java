@@ -10,6 +10,6 @@ public interface IUserDAO {
     User getUser(String nickname);
     void updateUser(String nickname, int monedas, int renos);
     void deleteUser(String nickname);
-    List<User> getUsers();
+    //List<User> getUsers();
     //public List <User> getEmployeeByDept(int deptId);
 }

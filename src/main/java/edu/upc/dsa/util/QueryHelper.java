@@ -59,4 +59,12 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQueryIDUSER(Class theClass){
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT ID FROM ").append(theClass.getSimpleName()).append(" ");
+        sb.append("WHERE username = ?").append(" ").append("AND password = ?");
+
+        return sb.toString();
+    }
+
 }

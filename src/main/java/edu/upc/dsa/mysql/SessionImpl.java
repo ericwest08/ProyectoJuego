@@ -1,5 +1,6 @@
 package edu.upc.dsa.mysql;
 
+import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.util.*;
 
 
@@ -124,6 +125,32 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         }
 
+    }
+
+    public String getID(Class theClass, String username, String password) throws UserNotFoundException {
+        String selectQuery = QueryHelper.createQueryIDUSER(theClass);
+
+        ResultSet rs;
+        PreparedStatement pstm;
+
+        String id;
+
+        try {
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(1, username);
+            pstm.setObject(2, password);
+            rs = pstm.executeQuery();
+
+            rs.next();
+
+            id = rs.getString(2);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new UserNotFoundException();
+        }
+
+        return id;
     }
 
 

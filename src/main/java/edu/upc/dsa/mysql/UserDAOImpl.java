@@ -1,5 +1,6 @@
 package edu.upc.dsa.mysql;
 
+import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.models.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
@@ -10,17 +11,29 @@ public class UserDAOImpl implements IUserDAO {
     final static Logger log = Logger.getLogger(UserDAOImpl.class.getName());
 
 
-    public void loginUser(String login, String passwd){
+    public void loginUser(String login, String passwd) throws UserNotFoundException {
         Session session = null;
         try{
             User user = new User();
-            user.setNameuser(login);
+            user.setNickname(login);
             user.setPassword(passwd);
 
             session = FactorySession.openSession();
-            session.selectlogin(user);
+            user = (User) session.get(User.class, user.getIduser());
         }catch (Exception e) {
             log.error("MYSQL Login fallado con "+User.class);
+        }
+        finally {
+            session.close();
+        }
+
+            session = FactorySession.openSession();
+            session.update(user, idUser);
+            player = (Player)session.get(Player.class, idUser);
+        }
+        catch (Exception e) {
+            log.error("Error trying to open the session: " +e.getMessage());
+            throw new UserNotFoundException();
         }
         finally {
             session.close();
@@ -34,9 +47,15 @@ public class UserDAOImpl implements IUserDAO {
             session = FactorySession.openSession();
             User user = new User(nickname, name, password);
             session.save(user);
+            String idUser = getIduser(nickname, password);
+            Jugador jugador = new Jugador();
+            jugador.setIduser(idUser);
+
+            session.save(jugador);
+            log.info("Jugador creado "+this.getClass().getSimpleName())
         }
         catch (Exception e) {
-            log.error("Error MSQL "+this.getClass());
+            log.error("Error MYSQL "+this.getClass());
         }
         finally {
             session.close();
@@ -99,6 +118,20 @@ public class UserDAOImpl implements IUserDAO {
         }
 
     }
+
+    public String getIduser(String nickname, String password) throws UserNotFoundException {
+    String idUser;
+    Session session = null;
+
+    try {
+        session = FactorySession.openSession();
+        idUser = session.getID(User.class, nickname, password);
+    } catch(Exception e){
+        log.error("El usuario no existe"+ e.getMessage());
+        throw new UserNotFoundException();
+    return idUser;
+    }
+
 
     /*public List<User> getUsers() {
         Session session = null;
