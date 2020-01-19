@@ -5,9 +5,12 @@ import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.models.*;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
+
 public class UserDAOImpl implements IUserDAO {
     final static Logger log = Logger.getLogger(UserDAOImpl.class.getName());
     private static IUserDAO instance;
+    private HashMap<String, User> users;
     private UserDAOImpl(){
     }
     public static IUserDAO getInstance() {
@@ -146,6 +149,10 @@ public class UserDAOImpl implements IUserDAO {
         }
     }
 
+    public int numUsers(){
+        return this.users.size();
+    }
+
 
 
     public void deleteUser(String nickname) throws UserNotFoundException {
@@ -187,6 +194,10 @@ public class UserDAOImpl implements IUserDAO {
         log.info("El usuario: "+user.getNickname());
         log.info("ha conseguido llegar al nivel "+partida.getNivel());
         return partida;
+    }
+
+    public void clear(){
+        instance = null;
     }
 
     public void comprarObjeto(String iduser, int cantidad) throws UserNotFoundException{
@@ -248,9 +259,6 @@ public class UserDAOImpl implements IUserDAO {
 
     }
 
-    public void clear() {
-        instance = null;
-    }
 
 
 

@@ -13,7 +13,8 @@ public interface IUserDAO {
     void addUser(String nickname, String name, String password);
     void cambiarPassword(String nickname ,String password, String newpass) throws UserNotFoundException;
     void deleteUser(String nickname) throws UserNotFoundException;
-
+    void clear();
+    int numUsers();
     //Relativos al juego --- GAME
     User getUser(String nickname);
     void updateUser(String nickname, int monedas, int renos);
