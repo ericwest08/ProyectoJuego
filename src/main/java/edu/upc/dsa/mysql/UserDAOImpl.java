@@ -3,20 +3,23 @@ package edu.upc.dsa.mysql;
 import edu.upc.dsa.exceptions.UserAlreadyConnectedException;
 import edu.upc.dsa.exceptions.UserNotFoundException;
 import edu.upc.dsa.models.*;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.List;
-import java.util.Stack;
 
 public class UserDAOImpl implements IUserDAO {
     final static Logger log = Logger.getLogger(UserDAOImpl.class.getName());
+    private static IUserDAO instance;
+    private UserDAOImpl(){
+    }
+    public static IUserDAO getInstance() {
+        if(instance==null){
+            instance=new UserDAOImpl();
+        }return instance;
+    }
 
-
-    public void loginUser(String login, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
+    public Jugador loginUser(String login, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
         Session session = null;
         User user=null;
-        Jugador jugador = null;
+        Jugador jugador;
         String idUser = getIduser(login, passwd);
 
         try{
@@ -45,38 +48,41 @@ public class UserDAOImpl implements IUserDAO {
             }
         }
         else{
-            log.error("El usuario ya existe");
+            log.error("El usuario ya está conectado");
             throw new UserAlreadyConnectedException();
         }
-
+    return jugador;
     }
 
 
-    public String addUser(String nickname, String name, String password) {
+    public void addUser(String nickname, String name, String password) {
         Session session = null;
         try {
             session = FactorySession.openSession();
-            User user = new User(nickname, name, password);
-            session.save(user);
-            String idUser = getIduser(nickname, password);
-            Jugador jugador = new Jugador();
-            jugador.setIduser(idUser);
+            //String id = session.getID(User.class, nickname, password);
+            //Hay que evitar que salte a la interrupcion si no encuentra a nadie
+            if(!session.existeUsuario(User.class, nickname, password)) {
 
-            session.save(jugador);
-            log.info("Jugador creado "+this.getClass().getSimpleName());
-        }
-        catch (Exception e) {
+                User user = new User(nickname, name, password);
+                session.save(user);
+                String idUser = getIduser(nickname, password);
+                Jugador jugador = new Jugador();
+                jugador.setIduser(idUser);
+
+                session.save(jugador);
+                log.info("Jugador creado " + this.getClass().getSimpleName());
+            }else throw new UserAlreadyConnectedException();
+        }catch (Exception e) {
             log.error("Error MYSQL "+this.getClass());
+
         }
         finally {
             session.close();
         }
-
-        return nickname;
     }
 
 
-    public User getUser(String nickname) {
+        public User getUser(String nickname) {
         Session session = null;
         User user = null;
         try {
@@ -236,6 +242,11 @@ public class UserDAOImpl implements IUserDAO {
 
 
     }
+
+    public void clear() {
+        instance = null;
+    }
+
 
 
 
