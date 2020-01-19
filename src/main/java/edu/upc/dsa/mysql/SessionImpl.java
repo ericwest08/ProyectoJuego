@@ -153,6 +153,31 @@ public class SessionImpl implements Session {
         return id;
     }
 
+    public boolean existeUsuario(Class theClass, String username, String password){
+        String selectQuery = QueryHelper.createQueryEXISTEUSER(theClass);
+
+        ResultSet rs;
+        PreparedStatement pstm;
+
+        boolean empty = true;
+        try {
+            pstm = conn.prepareStatement(selectQuery);
+            pstm.setObject(2, username);
+            rs = pstm.executeQuery();
+
+            while(rs.next()) {
+                empty = false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(empty == true)
+            return false;
+        else
+            return true;
+    }
 
 
     /*public List<Object> findAll(Class theClass) {

@@ -10,7 +10,7 @@ public class QueryHelper {
 
         String [] fields = ObjectHelper.getFields(entity);
 
-        sb.append("ID");
+        sb.append("IDUSER");
         for (String field: fields) {
             sb.append(", ").append(field);
         }
@@ -29,7 +29,7 @@ public class QueryHelper {
     public static String createQuerySELECT(Object entity) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
-        sb.append(" WHERE ID = ?");
+        sb.append(" WHERE IDUSER = ?");
 
         return sb.toString();
     }
@@ -37,7 +37,7 @@ public class QueryHelper {
     public static String createQueryDELETE(Object entity){
         StringBuffer sb = new StringBuffer();
         sb.append("DELETE FROM ").append(entity.getClass().getSimpleName()).append(" ");
-        sb.append("WHERE ID = ?");
+        sb.append("WHERE IDUSER = ?");
 
         return sb.toString();
     }
@@ -54,15 +54,23 @@ public class QueryHelper {
         }
         sb.delete(sb.length() -1, sb.length());
 
-        sb.append(" WHERE ID = ?");
+        sb.append(" WHERE IDUSER = ?");
 
         return sb.toString();
     }
 
     public static String createQueryIDUSER(Class theClass){
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT ID FROM ").append(theClass.getSimpleName()).append(" ");
-        sb.append("WHERE username = ?").append(" ").append("AND password = ?");
+        sb.append("SELECT IDUSER FROM ").append(theClass.getSimpleName()).append(" ");
+        sb.append("WHERE nickname = ?").append(" ").append("AND password = ?");
+
+        return sb.toString();
+    }
+
+    public static String createQueryEXISTEUSER(Class theClass) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT IDUSER FROM ").append(theClass.getSimpleName()).append(" ");
+        sb.append("WHERE nickname = ?").append(" ");
 
         return sb.toString();
     }

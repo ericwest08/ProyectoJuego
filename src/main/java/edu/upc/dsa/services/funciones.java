@@ -1,6 +1,7 @@
 package edu.upc.dsa.services;
 import edu.upc.dsa.models.User;
 import edu.upc.dsa.mysql.IUserDAO;
+import edu.upc.dsa.mysql.UserDAOImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,20 +11,18 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-
+import java.util.logging.Logger;
 
 
 @Api(value = "/users", description = "Endpoint to Product edu.upc.dsa.services.Service")
 @Path("/users")
+public class funciones {
+    final static Logger log = Logger.getLogger(funciones.class.getName());
 
+    private IUserDAO tm;
 
-public class Service {
-
-
-    private GameManager tm;
-
-    public Service() {
-        this.tm = GameManagerImpl.getInstance();
+    public funciones() {
+        this.tm = UserDAOImpl.getInstance();
 
         if (tm.size()==0) {
             this.tm.addUser("55555", "Eric", "Jimenez");
