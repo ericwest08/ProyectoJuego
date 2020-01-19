@@ -93,6 +93,27 @@ public class UserDAOImpl implements IUserDAO {
         return user;
     }
 
+    @Override
+    public void cambiarPassword(String nickname, String password) throws UserNotFoundException {
+        User user=getUser(nickname);
+        user.setPassword(password);
+        String idUser = user.getIduser();
+        getIduser(nickname, password);
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            session.update(User.class, idUser);
+            log.info("Actualizado: " + user.getName() + " con nueva contraseña");
+        }catch (Exception e) {
+            log.error("El usuario no existe "+this.getClass());
+            throw  new UserNotFoundException();
+        }
+        finally {
+            session.close();
+        }
+    }
+
+
 
     public void updateUser(String nickname, int monedas, int renos) {
         User user = this.getUser(nickname);
@@ -143,16 +164,66 @@ public class UserDAOImpl implements IUserDAO {
             log.error("El usuario no existe" + e.getMessage());
             throw new UserNotFoundException();
 
-        }return idUser;
+        }
+        return idUser;
+    }
+    public Partida getInfo(String nickname){
+        User user=getUser(nickname);
+        Jugador jugador = getJugador(user.getIduser());
+        Partida partida=new Partida();
+        partida.setId(nickname);
+        partida.setNivel(jugador.getRegalos());
+        log.info("El usuario: "+user.getNickname());
+        log.info("ha conseguido llegar al nivel "+partida.getNivel());
+        return partida;
     }
 
-    public Partida getInfo(User user){
+    public void comprarObjeto(String iduser, int cantidad) throws UserNotFoundException{
+        Jugador jugador= getJugador(iduser);
+        User user =getUser(iduser);
+        jugador.setRenos(cantidad);
+        if (user.getMonedas()>100*cantidad){
+            int monedas = (user.getMonedas()-100*cantidad);
+            cantidad=jugador.getRenos()+cantidad;
+            updateUser(user.getNickname(), monedas, cantidad);
+        }else
+            log.error("No tienes dinero");
+
+    }
+
+    public void logout(String nickname, int nivel, int regalos, int renos) throws UserNotFoundException {
         Session session = null;
-        String partida;
+        User user= getUser(nickname);
+        String iduser = user.getIduser();
+
+        Jugador jugador = getJugador(iduser);
+        jugador.setRegalos(regalos);
+        jugador.setRenos(nivel);
+        try {
+
+            session = FactorySession.openSession();
+
+            session.update(Jugador.class, iduser);
+            user = (User)session.get(User.class, iduser);
+            user.setConectado(false);
+            session.update(user, iduser);
+        }
+        catch(Exception e){
+            log.error("Error MYSQL" +e.getMessage());
+            throw new UserNotFoundException();
+        }
+        finally {
+            session.close();
+        }
+
+    }
+
+    private Jugador getJugador(String iduser) {
+        Session session = null;
+        Jugador jugador=null;
         try {
             session = FactorySession.openSession();
-            partida = session.
-
+            jugador = (Jugador)session.get(Jugador.class, iduser);
         }
         catch (Exception e) {
             log.error("Error MSQL "+this.getClass());
@@ -161,32 +232,11 @@ public class UserDAOImpl implements IUserDAO {
             session.close();
         }
 
-        return partida;
+        return jugador;
+
 
     }
-    public Jugador ComprarObjeto(int renos){
-        Jugador jugador =  new Jugador();
-        Session session = null;
-        try{
-            session = FactorySession.openSession();
 
-        }
-    }
-
-    public void cambiarcontraseña(String nickname, String newpassword) throws UserNotFoundException{
-        User theUser = this.getUser(nickname);
-        if (theUser != null){
-            theUser.setPassword(newpassword);
-            log.info("Actualizado: " + theUser + " con nueva contraseña: " + theUser.getPassword() + ".");
-
-        }
-        else
-        {
-            log.warn("El usuario no existe");
-            throw new UserNotFoundException();
-        }
-
-    }
 
 
 

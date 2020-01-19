@@ -1,8 +1,6 @@
 package edu.upc.dsa.services;
-import edu.upc.dsa.excluded.Objects;
 import edu.upc.dsa.models.User;
-import edu.upc.dsa.mysql.GameManager;
-import edu.upc.dsa.mysql.GameManagerImpl;
+import edu.upc.dsa.mysql.IUserDAO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -13,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-//import dsa.utils.ProductManager;
 
 
 @Api(value = "/users", description = "Endpoint to Product edu.upc.dsa.services.Service")
