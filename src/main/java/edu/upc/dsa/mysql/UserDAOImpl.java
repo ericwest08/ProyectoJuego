@@ -173,7 +173,49 @@ public class UserDAOImpl implements IUserDAO {
         Partida partida=new Partida();
         partida.setId(nickname);
         partida.setNivel(jugador.getRegalos());
+        log.info("El usuario: "+user.getNickname());
+        log.info("ha conseguido llegar al nivel "+partida.getNivel());
         return partida;
+    }
+
+    public void comprarObjeto(String iduser, int cantidad) throws UserNotFoundException{
+        Jugador jugador= getJugador(iduser);
+        User user =getUser(iduser);
+        jugador.setRenos(cantidad);
+        if (user.getMonedas()>100*cantidad){
+            int monedas = (user.getMonedas()-100*cantidad);
+            cantidad=jugador.getRenos()+cantidad;
+            updateUser(user.getNickname(), monedas, cantidad);
+        }else
+            log.error("No tienes dinero");
+
+    }
+
+    public void logout(String nickname, int nivel, int regalos, int renos) throws UserNotFoundException {
+        Session session = null;
+        User user= getUser(nickname);
+        String iduser = user.getIduser();
+
+        Jugador jugador = getJugador(iduser);
+        jugador.setRegalos(regalos);
+        jugador.setRenos(nivel);
+        try {
+
+            session = FactorySession.openSession();
+
+            session.update(Jugador.class, iduser);
+            user = (User)session.get(User.class, iduser);
+            user.setConectado(false);
+            session.update(user, iduser);
+        }
+        catch(Exception e){
+            log.error("Error MYSQL" +e.getMessage());
+            throw new UserNotFoundException();
+        }
+        finally {
+            session.close();
+        }
+
     }
 
     private Jugador getJugador(String iduser) {
@@ -194,6 +236,8 @@ public class UserDAOImpl implements IUserDAO {
 
 
     }
+
+
 
 
 }

@@ -18,6 +18,7 @@ public class User implements Comparable<User> {
         this.setNickname(nickname);
         this.setPassword(password);
         this.conectado= false;
+        this.monedas=288;
     }
 
     public User(){

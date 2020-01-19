@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface IUserDAO {
     void loginUser(String login, String passwd) throws UserNotFoundException,UserAlreadyConnectedException;
-
     String addUser(String nickname, String name, String password);
     User getUser(String nickname);
     void cambiarPassword(String nickname ,String password) throws UserNotFoundException;
@@ -16,5 +15,6 @@ public interface IUserDAO {
     void deleteUser(String nickname) throws UserNotFoundException;
     String getIduser(String nickname, String password) throws UserNotFoundException;
     Partida getInfo(String nickname);
-
+    void comprarObjeto(String iduser, int cantidad) throws UserNotFoundException;
+    void logout(String nickname, int nivel, int regalos, int renos) throws UserNotFoundException;
 }
