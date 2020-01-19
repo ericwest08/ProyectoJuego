@@ -32,7 +32,7 @@ public class Main {
         beanConfig.setContact("support@example.com");
         beanConfig.setDescription("Proyecto Juego Navidad");
         beanConfig.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
-        beanConfig.setResourcePackage("edu.upc.eetac.dsa.service");
+        beanConfig.setResourcePackage("edu.upc.dsa.services");
         beanConfig.setTermsOfServiceUrl("http://www.example.com/resources/eula");
         beanConfig.setTitle("REST API");
         beanConfig.setVersion("1.0.0");
