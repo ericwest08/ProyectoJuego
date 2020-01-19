@@ -100,15 +100,20 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     @Override
-    public void cambiarPassword(String nickname, String password) throws UserNotFoundException {
-        User user=getUser(nickname);
-        user.setPassword(password);
-        String idUser = user.getIduser();
-        getIduser(nickname, password);
+    public void cambiarPassword(String nickname, String password, String newPass) throws UserNotFoundException {
+        String idUser= getIduser(nickname, password);
+
         Session session = null;
+
+        Login credentials = new Login();
+        credentials.setNickname(nickname);
+        credentials.setOldpassword(password);
+        credentials.setNewpassword(newPass);
         try{
             session = FactorySession.openSession();
-            session.update(User.class, idUser);
+            User user= getUser(nickname);
+            user.setPassword(newPass);
+            session.update(user, idUser);
             log.info("Actualizado: " + user.getName() + " con nueva contraseña");
         }catch (Exception e) {
             log.error("El usuario no existe "+this.getClass());
