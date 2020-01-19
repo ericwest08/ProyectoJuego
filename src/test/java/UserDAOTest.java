@@ -31,7 +31,6 @@ public class UserDAOTest {
 
     @Test
     public void deleteUsertest() throws UserNotFoundException {
-
         this.gm.deleteUser("erwest");
         Assert.assertEquals(2, this.gm.numUsers());
         this.gm.clear();
