@@ -6,7 +6,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class Partida {
-    private String iduser;
+    private String nickname;
     private int tiempo;
     private int regalos;
     private int nivel;
@@ -18,11 +18,11 @@ public class Partida {
 
 
     public String getId() {
-        return iduser;
+        return nickname;
     }
 
-    public void setId(String id) {
-        this.iduser =id;
+    public void setId(String nickname) {
+        this.nickname =nickname;
     }
 
     public int getTiempo() {

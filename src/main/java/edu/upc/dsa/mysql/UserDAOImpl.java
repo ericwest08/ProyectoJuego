@@ -93,6 +93,27 @@ public class UserDAOImpl implements IUserDAO {
         return user;
     }
 
+    @Override
+    public void cambiarPassword(String nickname, String password) throws UserNotFoundException {
+        User user=getUser(nickname);
+        user.setPassword(password);
+        String idUser = user.getIduser();
+        getIduser(nickname, password);
+        Session session = null;
+        try{
+            session = FactorySession.openSession();
+            session.update(User.class, idUser);
+            log.info("Actualizado: " + user.getName() + " con nueva contraseña");
+        }catch (Exception e) {
+            log.error("El usuario no existe "+this.getClass());
+            throw  new UserNotFoundException();
+        }
+        finally {
+            session.close();
+        }
+    }
+
+
 
     public void updateUser(String nickname, int monedas, int renos) {
         User user = this.getUser(nickname);
@@ -103,7 +124,7 @@ public class UserDAOImpl implements IUserDAO {
         jugador.setRenos(renos);
         try {
             session = FactorySession.openSession();
-            session.update(User.class, idUser)
+            session.update(User.class, idUser);
             session.update(Jugador.class, idUser);
         }
         catch (Exception e) {
@@ -143,11 +164,37 @@ public class UserDAOImpl implements IUserDAO {
             log.error("El usuario no existe" + e.getMessage());
             throw new UserNotFoundException();
 
-        }return idUser;
+        }
+        return idUser;
+    }
+    public Partida getInfo(String nickname){
+        User user=getUser(nickname);
+        Jugador jugador = getJugador(user.getIduser());
+        Partida partida=new Partida();
+        partida.setId(nickname);
+        partida.setNivel(jugador.getRegalos());
+        return partida;
+    }
+
+    private Jugador getJugador(String iduser) {
+        Session session = null;
+        Jugador jugador=null;
+        try {
+            session = FactorySession.openSession();
+            jugador = (Jugador)session.get(Jugador.class, iduser);
+        }
+        catch (Exception e) {
+            log.error("Error MSQL "+this.getClass());
+        }
+        finally {
+            session.close();
+        }
+
+        return jugador;
 
 
+    }
 
 
-}
 }
 
