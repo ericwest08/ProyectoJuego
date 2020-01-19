@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 @Api(value="/login", description = "Operaciones relativas a la gestion de usuarios")
 @Path("/auth")
 public class LoginService {
-    final static Logger log = Logger.getLogger(funciones.class.getName());
+    final static Logger log = Logger.getLogger(LoginService.class.getName());
 
     private IUserDAO tm;
 
