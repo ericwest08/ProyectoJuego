@@ -21,10 +21,10 @@ public class UserDAOImpl implements IUserDAO {
 
     public Jugador loginUser(String nickname, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
         Session session = null;
+
         User user=null;
         Jugador jugador;
         String iduser = getIduser(nickname, passwd);
-
         try{
             session = FactorySession.openSession();
             user = (User) session.get(User.class, iduser);
@@ -64,8 +64,7 @@ public class UserDAOImpl implements IUserDAO {
             session = FactorySession.openSession();
             //String id = session.getID(User.class, nickname, password);
             //Hay que evitar que salte a la interrupcion si no encuentra a nadie
-            if(!session.
-                    existeUsuario(User.class, nickname, password)) {
+            if(!session.existeUsuario(User.class, nickname, password)) {
 
                 User user = new User(nickname, name, password);
                 session.save(user);
@@ -183,6 +182,8 @@ public class UserDAOImpl implements IUserDAO {
             log.error("El usuario no existe" + e.getMessage());
             throw new UserNotFoundException();
 
+        }finally {
+            session.close();
         }
         return idUser;
     }
