@@ -62,6 +62,8 @@ public class SessionImpl implements Session {
 
         try {
             entity = theClass.newInstance();
+            log.debug("Objeto "+entity);
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
