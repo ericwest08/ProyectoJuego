@@ -56,10 +56,10 @@ public class SessionImpl implements Session {
     }
 
     public Object get(Class theClass, String ID) throws SQLException {
-        Object entity = null;
+
         String selectQuery = QueryHelper.createQuerySELECT(theClass);
-        ResultSet rs;
-        PreparedStatement pstm;
+        Object entity = null;
+
         try {
             entity = theClass.newInstance();
         } catch (InstantiationException e) {
@@ -67,12 +67,12 @@ public class SessionImpl implements Session {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        ResultSet rs;
+        PreparedStatement pstm;
 
         try {
             pstm = conn.prepareStatement(selectQuery);
-            log.info("QUERY: "+selectQuery);
             pstm.setObject(1, ID);
-            log.info("QUERY: "+pstm);
             rs = pstm.executeQuery();
 
             while (rs.next()) {
