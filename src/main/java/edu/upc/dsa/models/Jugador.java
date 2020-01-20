@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Jugador {
     private String iduser;
+    private float tiempo;
     private int renos;
     private int regalos;
 
@@ -12,7 +13,13 @@ public class Jugador {
         this.renos=0;
         this.regalos=0;
     }
+    public float getTiempo() {
+        return tiempo;
+    }
 
+    public void setTiempo(float tiempo) {
+        this.tiempo = tiempo;
+    }
 
     public int getRenos() {
         return renos;
