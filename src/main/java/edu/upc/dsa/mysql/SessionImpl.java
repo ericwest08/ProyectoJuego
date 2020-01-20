@@ -140,7 +140,7 @@ public class SessionImpl implements Session {
         ResultSet rs;
         PreparedStatement pstm;
 
-        String id;
+        String id = null;
 
         try {
             pstm = conn.prepareStatement(selectQuery);

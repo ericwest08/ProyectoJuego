@@ -40,7 +40,7 @@ public class LoginService {
             @ApiResponse(code = 404, message = "exc Error"),
             @ApiResponse(code = 418, message = "Ya está conectado")
     })
-    @Path("/signin/")
+    @Path("/signin")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response signIn(User user) {
         String username = user.getNickname();
