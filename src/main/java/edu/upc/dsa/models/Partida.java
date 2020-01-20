@@ -8,7 +8,6 @@ import java.util.UUID;
 public class Partida {
     private String nickname;
     private int tiempo;
-    private int regalos;
     private int nivel;
 
     public Partida() {
@@ -32,14 +31,6 @@ public class Partida {
 
     public void setTiempo(int tiempo) {
         this.tiempo = tiempo;
-    }
-
-    public int getRegalos() {
-        return regalos;
-    }
-
-    public void setRegalos(int regalos) {
-        this.regalos = regalos;
     }
 
     public int getNivel() {

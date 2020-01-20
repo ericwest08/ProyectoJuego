@@ -19,15 +19,15 @@ public class UserDAOImpl implements IUserDAO {
         }return instance;
     }
 
-    public Jugador loginUser(String login, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
+    public Jugador loginUser(String nickname, String passwd) throws UserNotFoundException, UserAlreadyConnectedException {
         Session session = null;
         User user=null;
         Jugador jugador;
-        String idUser = getIduser(login, passwd);
+        String iduser = getIduser(nickname, passwd);
 
         try{
             session = FactorySession.openSession();
-            user = (User) session.get(User.class, idUser);
+            user = (User) session.get(User.class, iduser);
         }catch (Exception e) {
             log.error("MYSQL Login fallado con "+User.class);
         }
@@ -39,8 +39,8 @@ public class UserDAOImpl implements IUserDAO {
 
             try {
                 session = FactorySession.openSession();
-                session.update(user, idUser);
-                jugador = (Jugador)session.get(Jugador.class, idUser);
+                session.update(user, iduser);
+                jugador = (Jugador)session.get(Jugador.class, iduser);
             }
             catch (Exception e) {
                 log.error("Error trying to open the session: " +e.getMessage());
@@ -64,7 +64,8 @@ public class UserDAOImpl implements IUserDAO {
             session = FactorySession.openSession();
             //String id = session.getID(User.class, nickname, password);
             //Hay que evitar que salte a la interrupcion si no encuentra a nadie
-            if(!session.existeUsuario(User.class, nickname, password)) {
+            if(!session.
+                    existeUsuario(User.class, nickname, password)) {
 
                 User user = new User(nickname, name, password);
                 session.save(user);

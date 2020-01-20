@@ -88,7 +88,7 @@ public class SessionImpl implements Session {
 
             try {
                 pstm = conn.prepareStatement(updateQuery);
-                int i = 2;
+                int i = 1;
 
                 for (String field : ObjectHelper.getFields(entity)) {
                         pstm.setObject(i++, ObjectHelper.getter(entity, field));
@@ -143,7 +143,7 @@ public class SessionImpl implements Session {
 
             rs.next();
 
-            id = rs.getString(2);
+            id = rs.getString(1);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,7 +162,7 @@ public class SessionImpl implements Session {
         boolean empty = true;
         try {
             pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(2, username);
+            pstm.setObject(1, username);
             rs = pstm.executeQuery();
 
             while(rs.next()) {

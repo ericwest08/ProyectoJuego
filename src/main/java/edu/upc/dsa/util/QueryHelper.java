@@ -10,7 +10,6 @@ public class QueryHelper {
 
         String [] fields = ObjectHelper.getFields(entity);
 
-        sb.append("IDUSER");
         for (String field: fields) {
             sb.append(", ").append(field);
         }
@@ -26,10 +25,37 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQueryINSERTSIMPLE(Object entity){
+        StringBuffer sb = new StringBuffer("INSERT INTO ");
+
+        sb.append(entity.getClass().getSimpleName()).append(" ");
+        sb.append("(");
+
+        String [] fields = ObjectHelper.getFields(entity);
+
+        for (String field: fields) {
+            sb.append(field).append(", ");
+        }
+
+        sb.delete(sb.length() -29, sb.length());
+
+        sb.append(") VALUES (");
+
+        for (String field: fields) {
+            sb.append("?, ");
+        }
+
+        sb.delete(sb.length()-11, sb.length());
+
+        sb.append(")");
+
+        return sb.toString();
+    }
+
     public static String createQuerySELECT(Object entity) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());
-        sb.append(" WHERE IDUSER = ?");
+        sb.append(" WHERE iduser = ?");
 
         return sb.toString();
     }
@@ -51,7 +77,6 @@ public class QueryHelper {
     }
 
     public static String createQueryUPDATE(Object entity) {
-        boolean noclass = false;
         StringBuffer sb = new StringBuffer();
         sb.append("UPDATE ").append(entity.getClass().getSimpleName()).append(" ").append("SET");
 
@@ -62,7 +87,7 @@ public class QueryHelper {
         }
         sb.delete(sb.length() -1, sb.length());
 
-        sb.append(" WHERE IDUSER = ?");
+        sb.append(" WHERE iduser = ?");
 
         return sb.toString();
     }
@@ -86,7 +111,7 @@ public class QueryHelper {
 
     public static String createQueryIDUSER(Class theClass){
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT IDUSER FROM ").append(theClass.getSimpleName()).append(" ");
+        sb.append("SELECT iduser FROM ").append(theClass.getSimpleName()).append(" ");
         sb.append("WHERE nickname = ?").append(" ").append("AND password = ?");
 
         return sb.toString();

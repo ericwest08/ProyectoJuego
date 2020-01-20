@@ -5,14 +5,13 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.util.*;
 
 public class User implements Comparable<User> {
-
     private String iduser;
     private String nickname;
     private String name;
     private String password;
-    private boolean conectado;
     private int monedas;
     private int renos;
+    private boolean conectado;
 
     public User(String nickname, String name, String password){
         this.setIduser();
@@ -31,6 +30,10 @@ public class User implements Comparable<User> {
     public void setIduser(){
         String iduser = UUID.randomUUID().toString();
         this.iduser=iduser;
+    }
+
+    public void mockId(String s){
+        this.iduser=s;
     }
 
     public String getName() {
