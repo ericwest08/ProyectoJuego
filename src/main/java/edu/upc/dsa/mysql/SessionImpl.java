@@ -137,8 +137,8 @@ public class SessionImpl implements Session {
 
         try {
             pstm = conn.prepareStatement(selectQuery);
-            pstm.setObject(2, username);
-            pstm.setObject(4, password);
+            pstm.setObject(1, username);
+            pstm.setObject(2, password);
             rs = pstm.executeQuery();
 
             rs.next();
