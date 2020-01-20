@@ -58,6 +58,13 @@ public class SessionImpl implements Session {
         String selectQuery = QueryHelper.createQuerySELECT(theClass);
         ResultSet rs;
         PreparedStatement pstm;
+        try {
+            entity = theClass.newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         try {
             pstm = conn.prepareStatement(selectQuery);
