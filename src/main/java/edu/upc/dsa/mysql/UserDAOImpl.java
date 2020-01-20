@@ -25,10 +25,11 @@ public class UserDAOImpl implements IUserDAO {
         User user=null;
         Jugador jugador;
         String iduser = getIduser(nickname, passwd);
+        log.info("Jugador"+nickname);
         try{
             session = FactorySession.openSession();
             user = (User) session.get(User.class, iduser);
-            log.info(user.getName());
+
         }catch (Exception e) {
             log.error("MYSQL Login fallado con "+User.class);
         }
