@@ -27,7 +27,7 @@ public class Main {
 
         BeanConfig beanConfig = new BeanConfig();
 
-        beanConfig.setHost("147.83.7.205:8080");
+        beanConfig.setHost("147.83.7.205");
         beanConfig.setBasePath("/dsaApp");
         beanConfig.setContact("support@example.com");
         beanConfig.setDescription("Proyecto Juego Navidad");
