@@ -174,12 +174,13 @@ public class UserDAOImpl implements IUserDAO {
     }
 
     public String getIduser(String nickname, String password) throws UserNotFoundException {
-        String idUser;
+        String idUser=null;
         Session session = null;
 
         try {
             session = FactorySession.openSession();
             idUser = session.getID(User.class, nickname, password);
+            log.info(idUser);
         } catch (Exception e) {
             log.error("El usuario no existe" + e.getMessage());
             throw new UserNotFoundException();

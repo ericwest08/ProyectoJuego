@@ -41,6 +41,13 @@ public class UserDAOTest {
         j1.setIduser(u.getIduser());
         Assert.assertEquals(j1, gm.loginUser(nickname,password));
     }
+    @Test
+    public void insertUserDB() throws UserNotFoundException, UserAlreadyConnectedException {
+        this.gm = UserDAOImpl.getInstance();
+        this.gm.loginUser("Carlos", "Carlos");
+        Assert.assertEquals(0, this.gm.loginUser("Carlos1", "Carlos").getRegalos());
+        this.gm.clear();
+    }
 
 
     @Test
