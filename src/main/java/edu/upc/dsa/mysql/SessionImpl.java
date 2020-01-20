@@ -57,7 +57,7 @@ public class SessionImpl implements Session {
 
     public Object get(Class theClass, String ID) throws SQLException {
         Object entity = null;
-        String selectQuery = QueryHelper.createQuerySELECT(theClass);
+        String selectQuery = QueryHelper.createQuerySELECT(theClass.getSimpleName());
         ResultSet rs;
         PreparedStatement pstm;
         try {
