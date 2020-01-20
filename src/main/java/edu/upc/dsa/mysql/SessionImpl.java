@@ -90,6 +90,7 @@ public class SessionImpl implements Session {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        log.debug("Objeto "+entity);
         return entity;
     }
         public void update(Object entity, String ID) {
