@@ -34,7 +34,7 @@ public class UserDAOTest {
 
     @Test
     public void testLogin() throws UserNotFoundException, UserAlreadyConnectedException {
-        Jugador j1=new Jugador();
+        Jugador j1 = new Jugador();
         User u = new User("A12", "Alvaro", "111");
         String nickname = u.getNickname();
         String password = u.getPassword();
