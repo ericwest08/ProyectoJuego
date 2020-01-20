@@ -10,6 +10,8 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.reflections.Reflections.log;
+
 
 public class SessionImpl implements Session {
     private final Connection conn;
@@ -68,6 +70,7 @@ public class SessionImpl implements Session {
 
         try {
             pstm = conn.prepareStatement(selectQuery);
+            log.info("QUERY: "+selectQuery);
             pstm.setObject(1, ID);
             rs = pstm.executeQuery();
 

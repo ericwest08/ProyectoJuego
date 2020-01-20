@@ -25,7 +25,7 @@ public class UserDAOImpl implements IUserDAO {
         User user=null;
         Jugador jugador;
         String iduser = getIduser(nickname, passwd);
-        log.info("Jugador"+nickname);
+        session = null;
         try{
             session = FactorySession.openSession();
             user = (User) session.get(User.class, iduser);
