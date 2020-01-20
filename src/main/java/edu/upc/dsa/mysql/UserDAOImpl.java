@@ -183,6 +183,7 @@ public class UserDAOImpl implements IUserDAO {
             throw new UserNotFoundException();
 
         }finally {
+            //hace falta cerrar la sesion para que no de error en el login
             session.close();
         }
         return idUser;

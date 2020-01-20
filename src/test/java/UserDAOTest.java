@@ -1,4 +1,6 @@
+import edu.upc.dsa.exceptions.UserAlreadyConnectedException;
 import edu.upc.dsa.exceptions.UserNotFoundException;
+import edu.upc.dsa.models.Jugador;
 import edu.upc.dsa.models.User;
 import edu.upc.dsa.mysql.IUserDAO;
 import edu.upc.dsa.mysql.UserDAOImpl;
@@ -20,6 +22,9 @@ public class UserDAOTest {
         this.gm.addUser("erwest", "Eric", "erwest");
         this.gm.addUser("19zandu", "Joseph", "19zandu");
         this.gm.addUser("guidobetcher", "Guido", "guidobetcher");
+
+
+
     }
 
     @After
@@ -27,6 +32,15 @@ public class UserDAOTest {
         this.gm.clear();
     }
 
+    @Test
+    public void testLogin() throws UserNotFoundException, UserAlreadyConnectedException {
+        Jugador j1=new Jugador();
+        User u = new User("A12", "Alvaro", "111");
+        String nickname = u.getNickname();
+        String password = u.getPassword();
+        j1.setIduser(u.getIduser());
+        Assert.assertEquals(j1, gm.loginUser(nickname,password));
+    }
 
 
     @Test
