@@ -52,6 +52,13 @@ public class QueryHelper {
         return sb.toString();
     }
 
+    public static String createQuerySELECT(Class entity) {
+        StringBuffer sb = new StringBuffer();
+        sb.append("SELECT * FROM ").append(entity.getSimpleName());
+        sb.append(" WHERE iduser = ?");
+
+        return sb.toString();
+    }
     public static String createQuerySELECT(Object entity) {
         StringBuffer sb = new StringBuffer();
         sb.append("SELECT * FROM ").append(entity.getClass().getSimpleName());

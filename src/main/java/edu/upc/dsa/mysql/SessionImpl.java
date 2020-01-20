@@ -60,7 +60,7 @@ public class SessionImpl implements Session {
         String selectQuery = QueryHelper.createQuerySELECT(theClass);
         Object entity = null;
 
-        /*try {
+        try {
             entity = theClass.newInstance();
             log.debug("Objeto "+entity);
 
@@ -68,7 +68,7 @@ public class SessionImpl implements Session {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }*/
+        }
         ResultSet rs;
         PreparedStatement pstm;
 
