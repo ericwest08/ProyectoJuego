@@ -28,10 +28,11 @@ public class UserDAOImpl implements IUserDAO {
         session = null;
         try{
             session = FactorySession.openSession();
-            user = (User) session.get(User.class, iduser);
+            user = (User)session.get(User.class, iduser);
 
         }catch (Exception e) {
             log.error("MYSQL Login fallado con "+User.class);
+            e.printStackTrace();
         }
         finally {
             session.close();

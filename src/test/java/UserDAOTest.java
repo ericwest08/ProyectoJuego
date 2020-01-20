@@ -27,6 +27,7 @@ public class UserDAOTest {
 
     }
 
+
     @After
     public void tearDown() {
         this.gm.clear();
@@ -47,6 +48,11 @@ public class UserDAOTest {
         this.gm.loginUser("Carlos", "Carlos");
         Assert.assertEquals(0, this.gm.loginUser("Carlos1", "Carlos").getRegalos());
         this.gm.clear();
+    }
+    @Test
+    public void getUserTest(){
+        Assert.assertEquals("e",
+                this.gm.getUser("19zandu"));
     }
 
 

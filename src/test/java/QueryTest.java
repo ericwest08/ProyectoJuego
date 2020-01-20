@@ -22,6 +22,11 @@ public class QueryTest {
                 QueryHelper.createQuerySELECT(new User("Juan", "lopez", "333333")));
     }
     @Test
+    public void testQuerySELECT2(){
+        Assert.assertEquals("SELECT * FROM User WHERE iduser = ?",
+                QueryHelper.createQuerySELECT(User.class));
+    }
+    @Test
     public void testQueryIDUSER(){
         Assert.assertEquals("SELECT iduser FROM User WHERE nickname = ? AND password = ?",
             QueryHelper.createQueryIDUSER(User.class));
@@ -53,16 +58,17 @@ public class QueryTest {
     public void testQuerySELECT2() {
         Assert.assertEquals("SELECT * FROM Deparment WHERE ID = ?",
                 QueryHelper.createQuerySELECT(new Deparment("ENTEL", "ENGINYERIA TELEMÀTICA")));
-    }
+    }*/
+
     @Test
     public void testQueryLogin() {
-        User user = new User();
+        User user=null;
         String login = "user1";
         String passwd = "passwd1";
-        user.setNameuser(login);
+        user.setNickname(login);
         user.setPassword(passwd);
         Assert.assertEquals("SELECT * FROM User WHERE username = ? AND password = ?",
-                QueryHelper.createQueryLOGIN(user));
-    }*/
+                QueryHelper.createQueryINSERTSIMPLE(user));
+    }
 
 }
